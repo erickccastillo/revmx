@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { getProducts } from '../services/api';
-import type { Product } from '../types/Product.tsx';
+import type { Product } from '../types/Product';
 
-type Params = { page?: number; q?: string; limit?: number };
+type Params = { q?: string };
 
 export const useFetchProducts = (params: Params) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [totalPages, setTotalPages] = useState<number>(1);
 
   useEffect(() => {
     let mounted = true;
@@ -17,15 +16,19 @@ export const useFetchProducts = (params: Params) => {
       setError(null);
       try {
         const data = await getProducts(params);
-        // Si tu API devuelve { data, page, totalPages } ajusta:
-        if (Array.isArray(data)) {
-          setProducts(data as Product[]);
-          setTotalPages(1);
-        } else {
-          setProducts((data as any).data || []);
-          setTotalPages((data as any).totalPages || 1);
+
+        // Debug: imprime la respuesta completa del backend
+        console.log('Respuesta completa del backend:', data);
+
+        // Debug: imprime solo el array de productos
+        console.log('Productos recibidos:', data.data);
+
+        // Tu backend devuelve { data: [...] }
+        if (mounted) {
+          setProducts(data.data || []);
         }
       } catch (err: any) {
+        console.error('Error en useFetchProducts:', err);
         setError(err.message || 'Error al cargar productos');
       } finally {
         if (mounted) setLoading(false);
@@ -35,7 +38,7 @@ export const useFetchProducts = (params: Params) => {
     return () => {
       mounted = false;
     };
-  }, [params?.page, params?.q, params?.limit]);
+  }, [params?.q]);
 
-  return { products, loading, error, totalPages };
+  return { products, loading, error };
 };

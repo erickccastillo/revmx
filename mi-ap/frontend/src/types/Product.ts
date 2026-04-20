@@ -1,9 +1,10 @@
 export type Product = {
-  id: string;
+  id: number;             // en la DB es número
   name: string;
   description?: string;
-  price: number;
+  price: string;          // Postgres devuelve numeric como string
   image?: string;
   stock?: number;
-  [key: string]: any;
+  created_at?: string;    // fechas como string ISO
+  updated_at?: string;
 };

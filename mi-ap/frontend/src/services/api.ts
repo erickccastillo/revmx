@@ -18,15 +18,13 @@ export type ProductsResponse = {
   total?: number;
 };
 
-export const getProducts = async (params?: { page?: number; q?: string; limit?: number }) => {
-  try {
-    const res = await api.get('/products', { params });
-    return res.data as ProductsResponse;
-  } catch (err: any) {
-    // Normaliza el error para el frontend
-    const message = err?.response?.data?.message || err.message || 'Error en la petición';
-    throw new Error(message);
-  }
-};
+
+export async function getProducts(params: { q?: string }) {
+  const res = await axios.get(`${import.meta.env.VITE_API_URL}/products`, {
+    params: { search: params.q }
+  });
+  return res.data; // { data: [...] }
+}
+
 
 export default api;

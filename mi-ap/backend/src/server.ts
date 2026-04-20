@@ -37,6 +37,7 @@ app.get('/products', async (req, res) => {
     console.log('SQL:', sql, 'params:', params);
 
     const { rows } = await pool.query(sql, params);
+    console.log('Resultados de la consulta:', rows);
     res.json({ data: rows, page });
   } catch (err: any) {
     console.error('DB query error', err);
