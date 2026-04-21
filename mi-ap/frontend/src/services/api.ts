@@ -19,12 +19,21 @@ export type ProductsResponse = {
 };
 
 
-export async function getProducts(params: { q?: string }) {
-  const res = await axios.get(`${import.meta.env.VITE_API_URL}/products`, {
-    params: { search: params.q }
-  });
-  return res.data; // { data: [...] }
-}
+export const getProducts = async (params: { q?: string; category?: string; page?: number; limit?: number }) => {
+  const query = new URLSearchParams();
+  if (params.q) query.append('search', params.q);
+  if (params.category && params.category !== 'TODOS') query.append('category', params.category);
+  if (params.page) query.append('page', String(params.page));
+  if (params.limit) query.append('limit', String(params.limit));
+
+  const res = await fetch(`http://localhost:4000/products?${query.toString()}`);
+  return res.json();
+};
+
+export const getFeatured = async () => {
+  const res = await fetch('http://localhost:4000/featured');
+  return res.json();
+};
 
 
 export default api;
