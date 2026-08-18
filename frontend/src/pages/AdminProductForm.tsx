@@ -162,13 +162,13 @@ const AdminProductForm: React.FC = () => {
           style={{
             backgroundColor: '#0a2a5e',
             color: 'white',
-            padding: '0.75rem 1.5rem',
+            padding: '0.5rem 1rem',
             borderRadius: '8px',
             textDecoration: 'none',
             fontWeight: 'bold',
           }}
         >
-          ← Volver a Gestión
+          ← Dashboard
         </Link>
       </div>
         <h2 className="admin-title">{isEditing ? 'Editar Producto' : 'Panel de Control'}</h2>
