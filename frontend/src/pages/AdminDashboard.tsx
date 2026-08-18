@@ -78,9 +78,10 @@ const AdminDashboard: React.FC = () => {
                     <td style={{ padding: '1rem' }}>
                       <img src={product.image_url} alt={product.name} style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '6px' }} />
                     </td>
-                    <td style={{ padding: '1rem', fontWeight: 500 }}>{product.name}</td>
-                    <td style={{ padding: '1rem', color: '#666' }}>{product.category}</td>
-                    <td style={{ padding: '1rem', color: '#0a2a5e', fontWeight: 'bold' }}>${product.price}</td>
+                  <td style={{ padding: '1rem' }}>{product.color}</td>
+                  <td style={{ padding: '1rem' }}>{product.material}</td>
+                  <td style={{ padding: '1rem' }}>{product.medidas}</td>
+                  <td style={{ padding: '1rem', color: '#0a2a5e', fontWeight: 'bold' }}>${product.price}</td>
                     <td style={{ padding: '1rem', textAlign: 'center' }}>
                       {/* Botón que te lleva al formulario de edición con el ID dinámico */}
                       <Link 
