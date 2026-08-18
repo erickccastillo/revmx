@@ -82,7 +82,7 @@ const AdminDashboard: React.FC = () => {
                   <td style={{ padding: '1rem' }}>{product.material}</td>
                   <td style={{ padding: '1rem' }}>{product.medidas}</td>
                   <td style={{ padding: '1rem', color: '#0a2a5e', fontWeight: 'bold' }}>${product.price}</td>
-                    <td style={{ padding: '1rem', textAlign: 'center' }}>
+                    <td style={{ padding: '1rem', textAlign: 'center', verticalAlign: 'middle',}}>
                       {/* Botón que te lleva al formulario de edición con el ID dinámico */}
                       <Link
                       to={`/admin/edit/${product.id}`}
