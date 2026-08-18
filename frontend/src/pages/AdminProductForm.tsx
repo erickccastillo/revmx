@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import './AdminProductForm.css'; // <-- Importamos nuestros nuevos estilos
+import { useParams, useNavigate } from 'react-router-dom';
+import './AdminProductForm.css'; // <-- Mantenemos tus estilos
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
@@ -8,85 +9,139 @@ const supabase = createClient(
 );
 
 const AdminProductForm: React.FC = () => {
+  // 1. Herramientas para editar y navegar
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const isEditing = Boolean(id);
+
+  // Estados del formulario
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState<number | ''>('');
   const [category, setCategory] = useState('PISOS');
   
   const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null); // Estado para la vista previa
+  const [preview, setPreview] = useState<string | null>(null);
+  const [existingImageUrl, setExistingImageUrl] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [loadingData, setLoadingData] = useState(isEditing);
+
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
+  // 2. EFECTO: Si estamos editando, traemos los datos de Supabase para llenar el formulario
+  useEffect(() => {
+    if (isEditing) {
+      const fetchProduct = async () => {
+        try {
+          const { data, error } = await supabase
+            .from('products')
+            .select('*')
+            .eq('id', id)
+            .single();
+            
+          if (error) throw error;
+
+          if (data) {
+            setName(data.name);
+            setDescription(data.description || '');
+            setPrice(data.price);
+            setCategory(data.category);
+            setPreview(data.image_url);
+            setExistingImageUrl(data.image_url);
+          }
+        } catch (error) {
+          console.error("Error al cargar producto:", error);
+          alert("No se pudo cargar la información del producto.");
+        } finally {
+          setLoadingData(false);
+        }
+      };
+      fetchProduct();
+    }
+  }, [id, isEditing]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const selectedFile = e.target.files[0];
       setFile(selectedFile);
-      // Creamos una URL temporal para mostrar la imagen antes de subirla
       setPreview(URL.createObjectURL(selectedFile));
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!file) return alert('Por favor, selecciona una imagen para el producto.');
+    
+    // 3. CAMBIO: Ya no exigimos la imagen. Solo nombre y precio.
     if (!name || !price) return alert('El nombre y el precio son obligatorios.');
 
     setUploading(true);
     try {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Date.now()}-${Math.random()}.${fileExt}`;
-      const filePath = `catalog/${fileName}`;
+      // 4. CAMBIO: Si no hay imagen nueva ni antigua, usamos una gris por defecto
+      let finalImageUrl = existingImageUrl || 'https://placehold.co/600x400/eeeeee/999999?text=Sin+Imagen';
 
-      const { error: uploadError } = await supabase.storage
-        .from('products')
-        .upload(filePath, file);
+      // Solo si el usuario seleccionó un archivo nuevo, lo subimos
+      if (file) {
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Date.now()}-${Math.random()}.${fileExt}`;
+        const filePath = `catalog/${fileName}`;
 
-      if (uploadError) throw uploadError;
+        const { error: uploadError } = await supabase.storage
+          .from('products')
+          .upload(filePath, file);
 
-      const { data: { publicUrl } } = supabase.storage
-        .from('products')
-        .getPublicUrl(filePath);
+        if (uploadError) throw uploadError;
+
+        const { data: { publicUrl } } = supabase.storage
+          .from('products')
+          .getPublicUrl(filePath);
+          
+        finalImageUrl = publicUrl; // Usamos la URL de la imagen recién subida
+      }
 
       const productData = {
         name,
         description,
         price: Number(price),
         category,
-        image_url: publicUrl,
+        image_url: finalImageUrl,
       };
 
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
-      const response = await fetch(`${apiUrl}/api/products`, {
-        method: 'POST',
+      // 5. Decidimos si creamos (POST) o actualizamos (PUT)
+      const method = isEditing ? 'PUT' : 'POST';
+      const url = isEditing ? `${apiUrl}/api/products/${id}` : `${apiUrl}/api/products`;
+
+      const response = await fetch(url, {
+        method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(productData),
       });
 
       if (!response.ok) throw new Error('Error en el servidor');
 
-      alert('✨ ¡Producto publicado con éxito!');
+      alert(isEditing ? '✨ ¡Producto actualizado!' : '✨ ¡Producto publicado con éxito!');
       
-      // Limpiar formulario
-      setName('');
-      setDescription('');
-      setPrice('');
-      setCategory('PISOS');
-      setFile(null);
-      setPreview(null);
+      // Al terminar, lo regresamos al panel principal
+      navigate('/admin');
 
     } catch (error) {
-      console.error('Error al subir:', error);
-      alert('Hubo un error al crear el producto. Intenta de nuevo.');
+      console.error('Error al guardar:', error);
+      alert('Hubo un error al guardar el producto. Intenta de nuevo.');
     } finally {
       setUploading(false);
     }
   };
 
+  if (loadingData) {
+    return <div style={{textAlign: 'center', marginTop: '5rem', fontSize: '1.2rem', color: '#0a2a5e'}}>Cargando información del producto...</div>;
+  }
+
   return (
     <div className="admin-container">
       <div className="admin-card">
-        <h2 className="admin-title">Panel de Control</h2>
-        <p className="admin-subtitle">Agrega un nuevo producto al catálogo de Revestimento</p>
+        <h2 className="admin-title">{isEditing ? 'Editar Producto' : 'Panel de Control'}</h2>
+        <p className="admin-subtitle">
+          {isEditing ? 'Modifica los detalles del producto' : 'Agrega un nuevo producto al catálogo de Revestimento'}
+        </p>
 
         <form onSubmit={handleSubmit}>
           
@@ -143,7 +198,8 @@ const AdminProductForm: React.FC = () => {
           </div>
 
           <div className="form-group">
-            <label>Fotografía del Producto</label>
+            {/* Cambiamos el texto para que sepa que es opcional */}
+            <label>{isEditing ? 'Cambiar Fotografía (Opcional)' : 'Fotografía del Producto (Opcional)'}</label>
             <div className="file-drop-area">
               <span style={{ color: '#0a2a5e', fontWeight: 600 }}>
                 {file ? file.name : 'Haz clic o arrastra una imagen aquí'}
@@ -156,7 +212,7 @@ const AdminProductForm: React.FC = () => {
               />
             </div>
             
-            {/* Si hay una imagen seleccionada, mostramos la vista previa */}
+            {/* Si hay una imagen seleccionada o ya existía una, la mostramos */}
             {preview && (
               <img src={preview} alt="Vista previa" className="image-preview" />
             )}
@@ -166,10 +222,10 @@ const AdminProductForm: React.FC = () => {
             {uploading ? (
               <>
                 <div className="spinner"></div>
-                Subiendo a la nube...
+                Guardando en la nube...
               </>
             ) : (
-              'Guardar Producto'
+              isEditing ? 'Actualizar Producto' : 'Guardar Producto'
             )}
           </button>
 
