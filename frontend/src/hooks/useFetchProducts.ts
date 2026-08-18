@@ -1,57 +1,37 @@
 import { useState, useEffect } from 'react';
 import type { Product } from '../types/Product';
 
-interface UseFetchProductsArgs {
-  page: number;
-  q: string;
-  category: string;
-}
-
-export const useFetchProducts = ({ page, q, category }: UseFetchProductsArgs) => {
+export const useFeaturedProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [totalPages, setTotalPages] = useState(0);
-  const [totalProducts, setTotalProducts] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      setError(null);
+    const fetchFeatured = async () => {
       try {
-        // Construimos los parámetros de la URL dinámicamente
-        const params = new URLSearchParams({
-          page: page.toString(),
-        });
-        
-        if (q) params.append('q', q);
-        if (category !== 'TODOS') params.append('category', category);
-
-        // Apunta al backend de producción en Render o al local en desarrollo
+        // 1. Usamos la variable de entorno que apunta a tu Backend en Render
         const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
         
-        const response = await fetch(`${apiUrl}/api/products?${params}`);
-        if (!response.ok) throw new Error('Error al cargar el catálogo');
+        // 2. Hacemos la petición a tu API
+        // Usamos /api/products que sabemos que ya funciona perfectamente
+        const response = await fetch(`${apiUrl}/api/products`);
+        
+        if (!response.ok) throw new Error('Error al cargar destacados');
         
         const data = await response.json();
         
-        setProducts(data.products || []);
-        setTotalPages(data.totalPages || 0);
-        setTotalProducts(data.totalProducts || 0);
-      } catch (err: any) {
-        setError(err.message);
+        // 3. Tomamos solo los primeros 4 productos para mostrarlos como "Destacados"
+        const allProducts = data.products || [];
+        setProducts(allProducts.slice(0, 4));
+        
+      } catch (error) {
+        console.error("Error cargando productos destacados:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    // Aplicamos un "debounce" de 300ms para evitar peticiones excesivas al escribir
-    const timerId = setTimeout(() => {
-      fetchProducts();
-    }, 300);
+    fetchFeatured();
+  }, []);
 
-    return () => clearTimeout(timerId);
-  }, [page, q, category]);
-
-  return { products, loading, error, totalPages, totalProducts };
+  return { products, loading };
 };
