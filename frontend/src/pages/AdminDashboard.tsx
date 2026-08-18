@@ -17,7 +17,7 @@ const AdminDashboard: React.FC = () => {
 
 
   return (
-    <div style={{ padding: '2rem',paddingTop: '120px',, maxWidth: '1000px', margin: '0 auto', minHeight: '80vh' }}>
+    <div style={{ padding: '2rem', paddingTop: '120px', maxWidth: '1000px', margin: '0 auto', minHeight: '80vh' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
         <h2 style={{ fontSize: '2rem', color: '#0a2a5e', margin: 0 }}>Gestión de Productos</h2>
         
