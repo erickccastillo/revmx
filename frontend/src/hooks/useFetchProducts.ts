@@ -1,38 +1,57 @@
-import { useEffect, useState } from 'react';
-import { getProducts } from '../services/api';
+import { useState, useEffect } from 'react';
 import type { Product } from '../types/Product';
 
-type Params = { q?: string; category?: string; page?: number; limit?: number };
+interface UseFetchProductsArgs {
+  page: number;
+  q: string;
+  category: string;
+}
 
-export const useFetchProducts = (params: Params) => {
+export const useFetchProducts = ({ page, q, category }: UseFetchProductsArgs) => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [totalProducts, setTotalProducts] = useState<number>(0);
-  const [totalPages, setTotalPages] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalProducts, setTotalProducts] = useState(0);
 
   useEffect(() => {
-    let mounted = true;
-    const fetchData = async () => {
+    const fetchProducts = async () => {
       setLoading(true);
       setError(null);
       try {
-        const data = await getProducts(params);
-        // Esperamos que el backend devuelva { data: [...], totalProducts, totalPages }
-        setProducts(data.data || []);
-        setTotalProducts(data.totalProducts || (data.data?.length ?? 0));
-        setTotalPages(data.totalPages || 1);
+        // Construimos los parámetros de la URL dinámicamente
+        const params = new URLSearchParams({
+          page: page.toString(),
+        });
+        
+        if (q) params.append('q', q);
+        if (category !== 'TODOS') params.append('category', category);
+
+        // Apunta al backend de producción en Render o al local en desarrollo
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+        
+        const response = await fetch(`${apiUrl}/api/products?${params}`);
+        if (!response.ok) throw new Error('Error al cargar el catálogo');
+        
+        const data = await response.json();
+        
+        setProducts(data.products || []);
+        setTotalPages(data.totalPages || 0);
+        setTotalProducts(data.totalProducts || 0);
       } catch (err: any) {
-        setError(err.message || 'Error al cargar productos');
+        setError(err.message);
       } finally {
-        if (mounted) setLoading(false);
+        setLoading(false);
       }
     };
-    fetchData();
-    return () => {
-      mounted = false;
-    };
-  }, [params?.q, params?.category, params?.page, params?.limit]);
 
-  return { products, loading, error, totalProducts, totalPages };
+    // Aplicamos un "debounce" de 300ms para evitar peticiones excesivas al escribir
+    const timerId = setTimeout(() => {
+      fetchProducts();
+    }, 300);
+
+    return () => clearTimeout(timerId);
+  }, [page, q, category]);
+
+  return { products, loading, error, totalPages, totalProducts };
 };

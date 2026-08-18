@@ -4,12 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-  "dev": "vite",
-  "build": "tsc -p . && vite build",
-  "preview": "vite preview",
-  "lint": "eslint \"src/**/*.{ts,tsx,js,jsx}\" --fix"
-},
+    "dev": "vite",
+    "build": "tsc -p . && vite build",
+    "preview": "vite preview",
+    "lint": "eslint \"src/**/*.{ts,tsx,js,jsx}\" --fix"
+  },
   "dependencies": {
+    "@supabase/supabase-js": "^2.112.3",
     "axios": "^1.15.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

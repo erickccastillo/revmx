@@ -1,25 +1,28 @@
 import React from 'react';
-import ProductCard from './ProductCard';
 import type { Product } from '../types/Product';
+import ProductCard from './ProductCard';
 
-const ProductList: React.FC<{ products: Product[] }> = ({ products }) => {
-  // Debug: imprime en consola los productos recibidos
-  console.log('ProductList recibió productos:', products);
+interface ProductListProps {
+  products: Product[];
+}
 
+const ProductList: React.FC<ProductListProps> = ({ products }) => {
   if (!products || products.length === 0) {
-    return <p>No hay productos disponibles.</p>;
+    return (
+      <div style={{ textAlign: 'center', padding: '3rem 0', color: '#666' }}>
+        <p>No se encontraron productos con estos filtros.</p>
+      </div>
+    );
   }
 
   return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill,minmax(220px,1fr))',
-        gap: 16,
-      }}
-    >
-      {products.map((p) => (
-        <ProductCard key={p.id} product={p} />
+    <div style={{ 
+      display: 'grid', 
+      gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', 
+      gap: '2rem' 
+    }}>
+      {products.map((product) => (
+        <ProductCard key={product.id} product={product} />
       ))}
     </div>
   );

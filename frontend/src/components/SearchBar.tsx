@@ -1,26 +1,27 @@
 import React from 'react';
-import useDebounce from '../hooks/useDebounce';
 
-type Props = {
+interface SearchBarProps {
   value: string;
-  onChange: (v: string) => void;
-};
+  onChange: (value: string) => void;
+}
 
-const SearchBar: React.FC<Props> = ({ value, onChange }) => {
-  const debounced = useDebounce(value, 300);
-  React.useEffect(() => {
-    onChange(debounced);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debounced]);
-
+const SearchBar: React.FC<SearchBarProps> = ({ value, onChange }) => {
   return (
-    <div style={{ marginBottom: 16 }}>
+    <div style={{ marginBottom: '1.5rem' }}>
       <input
-        type="search"
-        placeholder="Buscar productos..."
-        defaultValue={value}
+        type="text"
+        placeholder="Buscar por nombre (ej. Piso Cerámico)..."
+        value={value}
         onChange={(e) => onChange(e.target.value)}
-        style={{ width: '100%', padding: '8px 12px', borderRadius: 6, border: '1px solid #ddd' }}
+        style={{
+          width: '100%',
+          maxWidth: '500px',
+          padding: '0.75rem 1rem',
+          borderRadius: '8px',
+          border: '1px solid #ccc',
+          fontSize: '1rem',
+          outline: 'none',
+        }}
       />
     </div>
   );

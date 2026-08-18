@@ -1,33 +1,39 @@
 import React from 'react';
 import type { Product } from '../types/Product';
 
-const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
-  // Debug: imprime el producto completo en consola
-  console.log('Renderizando ProductCard con:', product);
+interface ProductCardProps {
+  product: Product;
+}
 
-  // Convierte price a número si viene como string
-  const priceNumber = typeof product.price === 'string'
-    ? parseFloat(product.price)
-    : product.price;
-
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <article style={{ background: 'var(--card)', borderRadius: 8, padding: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
-      <img
-        src={product.image || '/placeholder-product.png'}
-        alt={product.name}
-        style={{ width: '100%', height: 160, objectFit: 'cover', borderRadius: 6 }}
+    <div style={{ 
+      border: '1px solid #eaeaea', 
+      borderRadius: '12px', 
+      overflow: 'hidden',
+      backgroundColor: '#fff',
+      boxShadow: '0 4px 6px rgba(0,0,0,0.05)'
+    }}>
+      <img 
+        src={product.image_url} 
+        alt={product.name} 
+        style={{ width: '100%', height: '220px', objectFit: 'cover' }}
       />
-      <h3 style={{ margin: '8px 0' }}>{product.name}</h3>
-      {product.description && (
-        <p style={{ color: 'var(--muted)', margin: '4px 0' }}>{product.description}</p>
-      )}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8 }}>
-        <strong>${priceNumber.toFixed(2)}</strong>
-        <button style={{ background: 'var(--primary)', color: '#fff', border: 'none', padding: '6px 10px', borderRadius: 6 }}>
-          Agregar
-        </button>
+      <div style={{ padding: '1.25rem' }}>
+        <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#0a2a5e', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          {product.category}
+        </span>
+        <h4 style={{ margin: '0.5rem 0', fontSize: '1.1rem', color: '#333' }}>
+          {product.name}
+        </h4>
+        <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '1rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+          {product.description}
+        </p>
+        <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0a2a5e' }}>
+          ${product.price.toLocaleString('es-MX')}
+        </div>
       </div>
-    </article>
+    </div>
   );
 };
 

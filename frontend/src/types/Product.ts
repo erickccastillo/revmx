@@ -1,14 +1,12 @@
-export type Product = {
-  id: number;             // en la DB es número
+export interface Product {
+  id: string;
   name: string;
-  description?: string;
-  price: string;          // Postgres devuelve numeric como string
-  image?: string;
-  stock?: number;
-  category: string;       // nueva columna en la DB
-  created_at?: string;    // fechas como string ISO
-  updated_at?: string;
-};
+  description: string;
+  price: number;
+  category: string;
+  image_url: string;
+  created_at?: string;
+}
 
 /**
  * Respuesta esperada del backend para /products
