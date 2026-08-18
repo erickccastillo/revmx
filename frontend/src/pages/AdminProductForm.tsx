@@ -9,6 +9,7 @@ const supabase = createClient(
 );
 
 const AdminProductForm: React.FC = () => {
+  
   // 1. Herramientas para editar y navegar
   const { id } = useParams();
   const navigate = useNavigate();
