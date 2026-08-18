@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import './AdminProductForm.css'; // <-- Importamos nuestros nuevos estilos
+import 'AdminProductForm.css'; // <-- Importamos nuestros nuevos estilos
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
