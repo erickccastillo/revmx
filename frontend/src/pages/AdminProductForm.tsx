@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import { useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import './AdminProductForm.css'; // <-- Mantenemos tus estilos
 
 const supabase = createClient(
@@ -146,6 +146,28 @@ const AdminProductForm: React.FC = () => {
 
   return (
     <div className="admin-container">
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '1.5rem',
+        }}
+      >
+        <Link
+          to="/admin"
+          style={{
+            backgroundColor: '#0a2a5e',
+            color: 'white',
+            padding: '0.75rem 1.5rem',
+            borderRadius: '8px',
+            textDecoration: 'none',
+            fontWeight: 'bold',
+          }}
+        >
+          ← Volver a Gestión
+        </Link>
+      </div>
       <div className="admin-card">
         <h2 className="admin-title">{isEditing ? 'Editar Producto' : 'Panel de Control'}</h2>
         <p className="admin-subtitle">
