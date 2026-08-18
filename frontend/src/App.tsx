@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Catalog from './pages/Catalog';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Admin from './pages/AdminProductForm';
 import './App.css';
 
 const App: React.FC = () => {
@@ -14,6 +15,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />
+          <Route path="/Admin" element={<Admin />} />
           
         </Routes>
       </main>
