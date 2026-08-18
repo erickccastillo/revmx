@@ -5,7 +5,9 @@ export interface Product {
   price: number;
   category: string;
   image_url: string;
-  created_at?: string;
+  color: string;
+  material: string;
+  medidas: string;
 }
 
 /**
