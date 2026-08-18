@@ -4,15 +4,42 @@ import { supabase } from '../config/supabase';
 // Función para obtener productos (Catálogo)
 export const getProducts = async (req: Request, res: Response) => {
   try {
-    const { data, error } = await supabase
+    const { q, category } = req.query;
+
+    let query = supabase
       .from('products')
-      .select('*')
-      .order('created_at', { ascending: false });
+      .select('*');
+
+    // Buscar por nombre
+    if (q && typeof q === 'string') {
+      query = query.ilike('name', `%${q}%`);
+    }
+
+    // Filtrar por categoría
+    if (
+      category &&
+      typeof category === 'string' &&
+      category !== 'TODOS'
+    ) {
+      query = query.eq('category', category);
+    }
+
+    const { data, error } = await query.order(
+      'created_at',
+      { ascending: false }
+    );
 
     if (error) throw error;
-    res.json({ products: data });
+
+    res.json({
+      products: data,
+      totalProducts: data.length,
+      totalPages: 1,
+    });
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener productos' });
+    res.status(500).json({
+      error: 'Error al obtener productos',
+    });
   }
 };
 
