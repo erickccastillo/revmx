@@ -195,7 +195,7 @@ const AdminProductForm: React.FC = () => {
             <textarea 
               className="custom-input"
               placeholder="Breve descripción del material, textura o uso..."
-              rows={3}
+              rows={10}
               value={description} 
               onChange={(e) => setDescription(e.target.value)} 
             />
