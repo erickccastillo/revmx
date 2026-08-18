@@ -54,14 +54,17 @@ const AdminDashboard: React.FC = () => {
         <div style={{ overflowX: 'auto', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
-              <tr style={{ backgroundColor: '#f8f9fa', borderBottom: '2px solid #eaeaea' }}>
-                <th style={{ padding: '1rem' }}>Imagen</th>
-                <th style={{ padding: '1rem' }}>Nombre</th>
-                <th style={{ padding: '1rem' }}>Categoría</th>
-                <th style={{ padding: '1rem' }}>Precio</th>
-                <th style={{ padding: '1rem', textAlign: 'center' }}>Acción</th>
-              </tr>
-            </thead>
+            <tr style={{ backgroundColor: '#f8f9fa', borderBottom: '2px solid #eaeaea' }}>
+              <th style={{ padding: '1rem' }}>Imagen</th>
+              <th style={{ padding: '1rem' }}>Nombre</th>
+              <th style={{ padding: '1rem' }}>Categoría</th>
+              <th style={{ padding: '1rem' }}>Color</th>
+              <th style={{ padding: '1rem' }}>Material</th>
+              <th style={{ padding: '1rem' }}>Medidas</th>
+              <th style={{ padding: '1rem' }}>Precio</th>
+              <th style={{ padding: '1rem', textAlign: 'center' }}>Acción</th>
+            </tr>
+          </thead>
             <tbody>
               {products.length === 0 ? (
                 <tr>
