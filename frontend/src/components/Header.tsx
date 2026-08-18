@@ -61,7 +61,7 @@ const Header: React.FC = () => {
           Catálogo
         </NavLink>
         <Link
-          to="/Admin"
+          to="/admin"
           style={{
             backgroundColor: '#FFD700', // dorado elegante
             color: '#0a2a5e',
