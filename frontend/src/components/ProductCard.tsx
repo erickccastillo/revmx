@@ -34,9 +34,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <h4 style={{ margin: '0.5rem 0', fontSize: '1.1rem', color: '#333' }}>
           {product.name}
         </h4>
-        <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '1rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-          {product.description}
-        </p>
+
         <p>
           <strong>Color:</strong> {product.color}
         </p>
