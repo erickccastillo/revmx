@@ -68,7 +68,7 @@ const Header: React.FC = () => {
             fontWeight: 500,
           })}
         >
-          Catálogo
+          Admin
         </NavLink>
         <Link
           to="/quote"
