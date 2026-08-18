@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import logoImage from '../images/logo.PNG';
 
 const Header: React.FC = () => {
   return (
@@ -21,7 +22,7 @@ const Header: React.FC = () => {
       {/* Logo */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
         <img
-    src="/src/images/logo.png"   // coloca aquí la ruta de tu logo
+    src={logoImage}  // coloca aquí la ruta de tu logo
     alt="Logo Revestimento"
     style={{
       width: 60,
