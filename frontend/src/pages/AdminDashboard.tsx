@@ -84,15 +84,25 @@ const AdminDashboard: React.FC = () => {
                   <td style={{ padding: '1rem', color: '#0a2a5e', fontWeight: 'bold' }}>${product.price}</td>
                     <td style={{ padding: '1rem', textAlign: 'center' }}>
                       {/* Botón que te lleva al formulario de edición con el ID dinámico */}
-                      <Link 
-                        to={`/admin/edit/${product.id}`}
-                        style={{
-                          backgroundColor: '#e1b71f', color: '#0a2a5e', padding: '0.5rem 1rem', 
-                          borderRadius: '6px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem'
-                        }}
-                      >
-                        Editar ✏️
-                      </Link>
+                      <Link
+                      to={`/admin/edit/${product.id}`}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.4rem',
+                        backgroundColor: '#e1b71f',
+                        color: '#0a2a5e',
+                        padding: '0.75rem 1.2rem',
+                        borderRadius: '6px',
+                        textDecoration: 'none',
+                        fontWeight: 600,
+                        fontSize: '0.9rem',
+                        minWidth: '110px',
+                      }}
+                    >
+                      Editar 
+                    </Link>
                     </td>
                   </tr>
                 ))
