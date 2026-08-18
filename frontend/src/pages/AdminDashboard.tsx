@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useFetchProducts } from '../hooks/useFetchProducts';
 import SearchBar from '../components/SearchBar';
 
+
 const AdminDashboard: React.FC = () => {
   const [query, setQuery] = useState('');
   
@@ -13,6 +14,7 @@ const AdminDashboard: React.FC = () => {
     q: query,
     category: 'TODOS',
   });
+
 
   return (
     <div style={{ padding: '2rem', maxWidth: '1000px', margin: '0 auto', minHeight: '80vh' }}>
@@ -31,6 +33,7 @@ const AdminDashboard: React.FC = () => {
         </Link>
       </div>
 
+
       <div style={{ marginBottom: '2rem', maxWidth: '500px' }}>
         <SearchBar 
           value={query} 
@@ -41,25 +44,27 @@ const AdminDashboard: React.FC = () => {
         </p>
       </div>
 
+
       {loading && <p>Cargando inventario...</p>}
       {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+
 
       {/* Tabla de Productos */}
       {!loading && !error && (
         <div style={{ overflowX: 'auto', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
-           <thead>
-            <tr style={{ backgroundColor: '#f8f9fa', borderBottom: '2px solid #eaeaea' }}>
-              <th style={{ padding: '1rem' }}>Imagen</th>
-              <th style={{ padding: '1rem' }}>Nombre</th>
-              <th style={{ padding: '1rem' }}>Categoría</th>
-              <th style={{ padding: '1rem' }}>Color</th>
-              <th style={{ padding: '1rem' }}>Material</th>
-              <th style={{ padding: '1rem' }}>Medidas</th>
-              <th style={{ padding: '1rem' }}>Precio</th>
-              <th style={{ padding: '1rem', textAlign: 'center' }}>Acción</th>
-            </tr>
-          </thead>
+            <thead>
+              <tr style={{ backgroundColor: '#f8f9fa', borderBottom: '2px solid #eaeaea' }}>
+                <th style={{ padding: '1rem' }}>Imagen</th>
+                <th style={{ padding: '1rem' }}>Nombre</th>
+                <th style={{ padding: '1rem' }}>Categoría</th>
+                <th style={{ padding: '1rem' }}>Color</th>
+                <th style={{ padding: '1rem' }}>Material</th>
+                <th style={{ padding: '1rem' }}>Medidas</th>
+                <th style={{ padding: '1rem' }}>Precio</th>
+                <th style={{ padding: '1rem', textAlign: 'center' }}>Acción</th>
+              </tr>
+            </thead>
             <tbody>
               {products.length === 0 ? (
                 <tr>
@@ -123,5 +128,6 @@ const AdminDashboard: React.FC = () => {
     </div>
   );
 };
+
 
 export default AdminDashboard;
