@@ -202,7 +202,7 @@ const AdminProductForm: React.FC = () => {
                 <option value="DECORATIVOS">Decorativos</option>
                 <option value="MONOMANDOS">Monomandos</option>
                 <option value="MEZCLADORAS">Mezcladoras</option>
-                <option value="MUROS">MUROS</option>
+                <option value="MUROS">Muros</option>
                 <option value="LAVABOS">Lavabos</option>
               </select>
             </div>
