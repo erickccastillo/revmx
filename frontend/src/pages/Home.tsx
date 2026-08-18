@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useFeaturedProducts } from '../hooks/useFeaturedProducts';
-import bgImage from '../images/home.png';
 
 const Home: React.FC = () => {
   const { products, loading } = useFeaturedProducts();
@@ -29,7 +28,7 @@ const Home: React.FC = () => {
           style={{
             position: 'absolute',
             inset: 0,
-            backgroundImage: `url(${bgImage})`,
+            backgroundImage: 'url("/src/images/home.png")',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             filter: 'brightness(0.55)',
