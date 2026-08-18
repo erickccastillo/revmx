@@ -20,7 +20,7 @@ const App: React.FC = () => {
           
           {/* 2. Agrega la nueva ruta para el panel */}
           <Route path="/admin" element={<AdminProductForm />} />
-          
+          <Route path="/admin/edit/:id" element={<AdminProductForm />} />
         </Routes>
       </main>
       <Footer />

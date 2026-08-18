@@ -32,3 +32,21 @@ export const createProduct = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Error al crear producto' });
   }
 };
+
+export const updateProduct = async (req: Request, res: Response) => {
+  const { id } = req.params; // Obtenemos el ID de la URL
+  const { name, description, price, category, image_url } = req.body;
+
+  try {
+    const { data, error } = await supabase
+      .from('products')
+      .update({ name, description, price, category, image_url })
+      .eq('id', id)
+      .select();
+
+    if (error) throw error;
+    res.status(200).json({ message: 'Producto actualizado con éxito', product: data[0] });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+};
