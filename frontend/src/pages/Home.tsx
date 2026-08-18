@@ -122,7 +122,7 @@ const Home: React.FC = () => {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
             {products.map((p) => (
               <div key={p.id} style={{ borderRadius: '8px', overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                <img src={p.image} alt={p.name} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                <img src={p.image_url} alt={p.name} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
                 <div style={{ padding: '1rem' }}>
                   <h3 style={{ fontSize: '1.1rem', fontWeight: 600 }}>{p.category} {p.name}</h3>
                   <p style={{ fontSize: '0.9rem', color: '#555' }}>{p.description}</p>

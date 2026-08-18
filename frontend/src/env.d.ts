@@ -1,9 +1,11 @@
-// frontend/src/env.d.ts
+/// <reference types="vite/client" />
+
 interface ImportMetaEnv {
-  readonly VITE_API_URL?: string;
-  // añade aquí otras VITE_ variables que uses
+  readonly VITE_SUPABASE_URL: string
+  readonly VITE_SUPABASE_ANON_KEY: string
+  readonly VITE_API_URL: string
 }
 
 interface ImportMeta {
-  readonly env: ImportMetaEnv;
+  readonly env: ImportMetaEnv
 }
