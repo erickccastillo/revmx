@@ -44,9 +44,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <p>
           <strong>Medidas:</strong> {product.medidas}
         </p>
-        <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0a2a5e' }}>
-          ${product.price.toLocaleString('es-MX')}
-        </div>
+       // <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0a2a5e' }}>
+         // ${product.price.toLocaleString('es-MX')}
+       // </div>
       </div>
     </div>
   );
