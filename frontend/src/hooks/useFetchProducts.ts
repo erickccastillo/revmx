@@ -1,37 +1,57 @@
 import { useState, useEffect } from 'react';
 import type { Product } from '../types/Product';
 
-export const useFeaturedProducts = () => {
+interface UseFetchProductsArgs {
+  page: number;
+  q: string;
+  category: string;
+}
+
+export const useFetchProducts = ({ page, q, category }: UseFetchProductsArgs) => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalProducts, setTotalProducts] = useState(0);
 
   useEffect(() => {
-    const fetchFeatured = async () => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      setError(null);
       try {
-        // 1. Usamos la variable de entorno que apunta a tu Backend en Render
+        // Construimos los parámetros de la URL dinámicamente
+        const params = new URLSearchParams({
+          page: page.toString(),
+        });
+        
+        if (q) params.append('q', q);
+        if (category !== 'TODOS') params.append('category', category);
+
+        // Apunta al backend de producción en Render o al local en desarrollo
         const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
         
-        // 2. Hacemos la petición a tu API
-        // Usamos /api/products que sabemos que ya funciona perfectamente
-        const response = await fetch(`${apiUrl}/api/products`);
-        
-        if (!response.ok) throw new Error('Error al cargar destacados');
+        const response = await fetch(`${apiUrl}/api/products?${params}`);
+        if (!response.ok) throw new Error('Error al cargar el catálogo');
         
         const data = await response.json();
         
-        // 3. Tomamos solo los primeros 4 productos para mostrarlos como "Destacados"
-        const allProducts = data.products || [];
-        setProducts(allProducts.slice(0, 4));
-        
-      } catch (error) {
-        console.error("Error cargando productos destacados:", error);
+        setProducts(data.products || []);
+        setTotalPages(data.totalPages || 0);
+        setTotalProducts(data.totalProducts || 0);
+      } catch (err: any) {
+        setError(err.message);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchFeatured();
-  }, []);
+    // Aplicamos un "debounce" de 300ms para evitar peticiones excesivas al escribir
+    const timerId = setTimeout(() => {
+      fetchProducts();
+    }, 300);
 
-  return { products, loading };
+    return () => clearTimeout(timerId);
+  }, [page, q, category]);
+
+  return { products, loading, error, totalPages, totalProducts };
 };
