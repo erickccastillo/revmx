@@ -78,7 +78,7 @@ const AdminProductForm: React.FC = () => {
     e.preventDefault();
     
     // 3. CAMBIO: Ya no exigimos la imagen. Solo nombre y precio.
-    if (!name || !price) return alert('El nombre y el precio son obligatorios.');
+    if (!description) return alert('La descripcion es obligatoria.');
 
     setUploading(true);
     try {
