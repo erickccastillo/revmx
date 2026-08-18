@@ -146,17 +146,6 @@ const AdminProductForm: React.FC = () => {
 
   return (
     <div className="admin-container">
-      {/* Botón para crear un nuevo producto */}
-        <Link 
-          to="/admin" 
-          style={{ 
-            backgroundColor: '#0a2a5e', color: 'white', padding: '0.75rem 1.5rem', 
-            borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold' 
-          }}
-        >
-          + Nuevo Producto
-        </Link>
-
       <div className="admin-card">
         <h2 className="admin-title">{isEditing ? 'Editar Producto' : 'Panel de Control'}</h2>
         <p className="admin-subtitle">
