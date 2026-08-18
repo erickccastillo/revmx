@@ -15,7 +15,7 @@ const Catalog: React.FC = () => {
     category,
   });
 
-  const categories = ['TODOS', 'PISOS', 'AZULEJOS', 'DECORATIVOS', 'MONOMANDOS', 'MEZCLADORAS'];
+  const categories = ['TODOS', 'PISOS', 'AZULEJOS', 'DECORATIVOS', 'MONOMANDOS', 'MEZCLADORAS', 'LAVABOS'];
 
   // Función auxiliar para subir al inicio al cambiar de página
   const scrollToTop = () => {
