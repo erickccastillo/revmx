@@ -18,6 +18,9 @@ const AdminProductForm: React.FC = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState<number | ''>('');
+  const [color, setColor] = useState('');
+  const [material, setMaterial] = useState('');
+  const [medidas, setMedidas] = useState('');
   const [category, setCategory] = useState('PISOS');
   
   const [file, setFile] = useState<File | null>(null);
@@ -46,6 +49,9 @@ const AdminProductForm: React.FC = () => {
             setDescription(data.description || '');
             setPrice(data.price);
             setCategory(data.category);
+            setColor(data.color || '');
+            setMaterial(data.material || '');
+            setMedidas(data.medidas || '');
             setPreview(data.image_url);
             setExistingImageUrl(data.image_url);
           }
@@ -98,12 +104,15 @@ const AdminProductForm: React.FC = () => {
         finalImageUrl = publicUrl; // Usamos la URL de la imagen recién subida
       }
 
-      const productData = {
+    const productData = {
         name,
         description,
         price: Number(price),
         category,
         image_url: finalImageUrl,
+        color,
+        material,
+        medidas,
       };
 
       // 5. Decidimos si creamos (POST) o actualizamos (PUT)
@@ -196,6 +205,39 @@ const AdminProductForm: React.FC = () => {
               </select>
             </div>
           </div>
+
+          <div className="form-group">
+          <label>Color</label>
+          <input
+            type="text"
+            className="custom-input"
+            placeholder="Ej. Beige, Gris, Nogal"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
+          />
+        </div>
+        
+        <div className="form-group">
+          <label>Material</label>
+          <input
+            type="text"
+            className="custom-input"
+            placeholder="Ej. Cerámica, Porcelanato, Madera"
+            value={material}
+            onChange={(e) => setMaterial(e.target.value)}
+          />
+        </div>
+        
+        <div className="form-group">
+          <label>Medidas</label>
+          <input
+            type="text"
+            className="custom-input"
+            placeholder="Ej. 60x60 cm"
+            value={medidas}
+            onChange={(e) => setMedidas(e.target.value)}
+          />
+        </div>
 
           <div className="form-group">
             {/* Cambiamos el texto para que sepa que es opcional */}
