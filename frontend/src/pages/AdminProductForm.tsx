@@ -146,7 +146,9 @@ const AdminProductForm: React.FC = () => {
 
   return (
     <div className="admin-container">
-      <div
+      
+      <div className="admin-card">
+        <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
@@ -168,7 +170,6 @@ const AdminProductForm: React.FC = () => {
           ← Volver a Gestión
         </Link>
       </div>
-      <div className="admin-card">
         <h2 className="admin-title">{isEditing ? 'Editar Producto' : 'Panel de Control'}</h2>
         <p className="admin-subtitle">
           {isEditing ? 'Modifica los detalles del producto' : 'Agrega un nuevo producto al catálogo de Revestimento'}
