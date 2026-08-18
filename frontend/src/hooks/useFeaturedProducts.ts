@@ -21,7 +21,12 @@ export const useFeaturedProducts = () => {
         
         // 3. Tomamos solo los primeros 4 productos para mostrarlos como "Destacados"
         const allProducts = data.products || [];
-        setProducts(allProducts.slice(0, 4));
+        
+        const randomProducts = [...allProducts]
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 4);
+        
+        setProducts(randomProducts);
         
       } catch (error) {
         console.error("Error cargando productos destacados:", error);
