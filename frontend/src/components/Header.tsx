@@ -21,7 +21,7 @@ const Header: React.FC = () => {
       {/* Logo */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
         <img
-    src="/src/images/log.png"   // coloca aquí la ruta de tu logo
+    src="./logo.png"   // coloca aquí la ruta de tu logo
     alt="Logo Revestimento"
     style={{
       width: 60,
