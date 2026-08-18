@@ -60,6 +60,16 @@ const Header: React.FC = () => {
         >
           Catálogo
         </NavLink>
+        <NavLink
+          to="/admin"
+          style={({ isActive }) => ({
+            textDecoration: isActive ? 'underline' : 'none',
+            color: '#333',
+            fontWeight: 500,
+          })}
+        >
+          Catálogo
+        </NavLink>
         <Link
           to="/quote"
           style={{
