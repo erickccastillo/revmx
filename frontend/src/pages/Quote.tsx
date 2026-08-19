@@ -1,6 +1,14 @@
 import React from "react";
 
-const branches = [
+type Branch = {
+  id: number;
+  name: string;
+  address: string;
+  phone: string;
+  whatsapp: string;
+};
+
+const branches: Branch[] = [
   {
     id: 1,
     name: "Sucursal Base Aérea",
@@ -13,7 +21,7 @@ const branches = [
     id: 2,
     name: "Sucursal Camino Viejo",
     address:
-      "Camino Viejo a Tesistan 1071A, La Casita, Los Girasoles, 45138 Zapopan, Jal.",
+      "Camino Viejo a Tesistán 1071A, La Casita, Los Girasoles, 45138 Zapopan, Jal.",
     phone: "+52 3323456789",
     whatsapp: "523323456789",
   },
@@ -28,52 +36,59 @@ const branches = [
 ];
 
 const Quote: React.FC = () => {
+  const openWhatsApp = (branch: Branch) => {
+    const message = `Hola, me gustaría solicitar una cotización con ${branch.name}.`;
+
+    const url = `https://wa.me/${branch.whatsapp}?text=${encodeURIComponent(
+      message
+    )}`;
+
+    window.open(url, "_blank");
+  };
+
   return (
     <section style={styles.container}>
       <div style={styles.header}>
         <div style={styles.accentLine} />
 
-        <h1 style={styles.title}>Solicitar Cotización</h1>
+        <h1 style={styles.title}>
+          Solicitar Cotización
+        </h1>
 
         <p style={styles.subtitle}>
-          Selecciona la sucursal más cercana y uno de nuestros asesores te
-          atenderá directamente por WhatsApp.
+          Selecciona la sucursal más cercana para ser atendido por uno de
+          nuestros asesores.
         </p>
       </div>
 
       <div style={styles.grid}>
-        {branches.map((branch) => {
-          const whatsappUrl = `https://wa.me/${
-            branch.whatsapp
-          }?text=${encodeURIComponent(
-            `Hola, me gustaría solicitar una cotización con ${branch.name}.`
-          )}`;
+        {branches.map((branch) => (
+          <div key={branch.id} style={styles.card}>
+            <h2 style={styles.branchName}>
+              {branch.name}
+            </h2>
 
-          return (
-            <div key={branch.id} style={styles.card}>
-              <h2 style={styles.branchTitle}>{branch.name}</h2>
+            <p style={styles.address}>
+              {branch.address}
+            </p>
 
-              <p style={styles.address}>
-                {branch.address}
-              </p>
+            <p style={styles.phone}>
+              📞 {branch.phone}
+            </p>
 
-              <p style={styles.phone}>
-                📞 {branch.phone}
-              </p>
-
-              <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={styles.whatsappButton}
-          >
-            Solicitar por WhatsApp
-          </a>
-</div>
-);
-
-})}
-</div>
+            <button
+              type="button"
+              style={styles.button}
+              onClick={() => openWhatsApp(branch)}
+            >
+              Solicitar por WhatsApp
+            </button>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
 
 const styles: Record<string, React.CSSProperties> = {
   container: {
@@ -91,8 +106,8 @@ const styles: Record<string, React.CSSProperties> = {
     width: "60px",
     height: "4px",
     backgroundColor: "#FFD700",
-    borderRadius: "9999px",
-    margin: "0 auto 1.5rem auto",
+    margin: "0 auto 1.5rem",
+    borderRadius: "999px",
   },
 
   title: {
@@ -117,16 +132,16 @@ const styles: Record<string, React.CSSProperties> = {
 
   card: {
     backgroundColor: "#ffffff",
-    border: "1px solid #e5e7eb",
-    borderRadius: "16px",
     padding: "2rem",
+    borderRadius: "16px",
+    border: "1px solid #e5e7eb",
     boxShadow: "0 10px 25px rgba(0,0,0,0.05)",
   },
 
-  branchTitle: {
+  branchName: {
     color: "#0a2a5e",
+    fontSize: "1.3rem",
     fontWeight: 700,
-    fontSize: "1.35rem",
     marginBottom: "1rem",
   },
 
@@ -142,16 +157,15 @@ const styles: Record<string, React.CSSProperties> = {
     marginBottom: "1.5rem",
   },
 
-  whatsappButton: {
-    display: "block",
+  button: {
     width: "100%",
-    textAlign: "center",
+    border: "none",
+    borderRadius: "10px",
     padding: "14px",
     backgroundColor: "#25D366",
-    color: "#ffffff",
-    textDecoration: "none",
-    borderRadius: "10px",
+    color: "#fff",
     fontWeight: 700,
+    cursor: "pointer",
   },
 };
 
