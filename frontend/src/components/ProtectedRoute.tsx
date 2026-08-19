@@ -8,9 +8,5 @@ export default function ProtectedRoute({
 }) {
   const token = localStorage.getItem("adminToken");
 
-  if (!token) {
-    return <Navigate to="/login" replace />;
-  }
-
-  return <>{children}</>;
+  return token ? <>{children}</> : <Navigate to="/login" replace />;
 }
