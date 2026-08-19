@@ -17,7 +17,7 @@ const Home: React.FC = () => {
         <div style={styles.heroContent}>
           <div style={styles.badge}>
             <span style={styles.badgeDot}></span>
-            PISOS Y AZULEJOS · DESDE 1988
+            PISOS Y AZULEJOS
           </div>
           
           <h1 style={styles.heroTitle}>

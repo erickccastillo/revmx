@@ -1,15 +1,19 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
+// 1. Importa la imagen aquí. Ajusta la ruta dependiendo de dónde esté tu archivo.
+// Ejemplo: si está en una carpeta images sería import logo from '../images/logo.png';
+import logo from './logo.png'; 
+
 const Header: React.FC = () => {
   return (
     <header
       style={{
-        position: 'fixed',       // lo fija en la parte superior
-        top: 0,                  // pegado arriba
+        position: 'fixed',
+        top: 0,
         left: 0,
         right: 0,
-        zIndex: 1000,            // asegura que quede encima del contenido
+        zIndex: 1000,
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -21,20 +25,20 @@ const Header: React.FC = () => {
       {/* Logo */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
         <img
-    src="./logo.png"   // coloca aquí la ruta de tu logo
-    alt="Logo Revestimento"
-    style={{
-      width: 60,
-      height: 60,
-      borderRadius: 6,
-      objectFit: 'cover',        // asegura que se ajuste bien
-    }}
-  />
+          src={logo} // 2. Usa la variable importada aquí (sin comillas)
+          alt="Logo Revestimento"
+          style={{
+            width: 60,
+            height: 60,
+            borderRadius: 6,
+            objectFit: 'cover',
+          }}
+        />
         <div>
           <div style={{ fontFamily: 'Georgia', fontWeight: 700, fontSize: '1.25rem', color: '#000000' }}>
             Revestimento
           </div>
-          <div style={{ fontSize: '0.65rem', color: '#d1b00b' }}>PISOS & AZULEJOS</div>
+          <div style={{ fontSize: '0.65rem', color: '#ba9e10' }}>PISOS & AZULEJOS</div>
         </div>
       </div>
 
@@ -63,7 +67,7 @@ const Header: React.FC = () => {
         <Link
           to="/quote"
           style={{
-            backgroundColor: '#FFD700', // dorado elegante
+            backgroundColor: '#FFD700',
             color: '#0a2a5e',
             padding: '0.5rem 1rem',
             borderRadius: 6,

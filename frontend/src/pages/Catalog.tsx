@@ -168,7 +168,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   title: {
     fontSize: '2.5rem',
     fontWeight: 800,
-    color: '#0a2a5e',
+    color: '#bca109',
     margin: '0 0 1rem 0',
     letterSpacing: '-0.02em',
   },
