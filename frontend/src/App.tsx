@@ -28,11 +28,24 @@ const App: React.FC = () => {
           
           <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} /> 
           
-          {/* 2. El formulario en modo "Crear nuevo" */}
-          <Route path="/admin/new" element={<AdminProductForm />} /> 
+           <Route
+            path="/admin/new"
+            element={
+              <ProtectedRoute>
+                <AdminProductForm />
+              </ProtectedRoute>
+            }
+          />
           
-          {/* 3. El formulario en modo "Editar" (acepta un ID) */}
-          <Route path="/admin/edit/:id" element={<AdminProductForm />} /> 
+          <Route
+            path="/admin/edit/:id"
+            element={
+              <ProtectedRoute>
+                <AdminProductForm />
+              </ProtectedRoute>
+            }
+          />
+
           
         </Routes>
       </main>
