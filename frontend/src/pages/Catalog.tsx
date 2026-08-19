@@ -16,7 +16,7 @@ const Catalog: React.FC = () => {
   });
 
   const categories = [
-    'TODOS', 'PISOS', 'MUROS', 'CERAMICO', 'MPB', 
+    'TODOS', 'PISOS', 'MUROS', 'CERÁMICO', 'MPB', 
     'AZULEJOS', 'DECORATIVOS', 'MONOMANDOS', 'MEZCLADORAS', 'LAVABOS'
   ];
 
