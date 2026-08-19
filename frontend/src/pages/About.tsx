@@ -5,36 +5,28 @@ const About: React.FC = () => {
   const branches = [
     {
       id: 1,
-      name: 'Sucursal Matriz Niños Héroes',
-      address: 'Av. Niños Héroes 0000, Col. Moderna, Guadalajara, Jal.',
-      phone: '+52 (33) 1234-5678',
-      hours: 'Lunes a Viernes: 9:00 AM - 7:00 PM | Sábado: 9:00 AM - 2:00 PM',
+      name: 'Sucursal Base Aerea',
+      address: 'Av. Base Aerea 1273a, El Triángulo, 45138 Nuevo México, Jal.',
+      phone: '+52 3315876043',
+      hours: 'Lunes a Viernes: 9:00 AM - 6:00 PM | Sábado: 9:00 AM - 3:00 PM',
       // Pega aquí la URL que viene dentro del src="..." del iframe de Google Maps
-      mapSrc: 'https://www.google.com/maps/embed?pb=!1m18...', 
+      mapSrc: 'https://maps.app.goo.gl/1txb84sZAzqRWvjb9', 
     },
     {
       id: 2,
-      name: 'Sucursal Américas',
-      address: 'Av. de las Américas 0000, Providencia, Guadalajara, Jal.',
+      name: 'Sucursal Camino Viejo',
+      address: 'Camino Viejo a Tesistan 1071A, La Casita, Los Girasoles, 45138 Zapopan, Jal.',
       phone: '+52 (33) 2345-6789',
-      hours: 'Lunes a Viernes: 9:00 AM - 7:00 PM | Sábado: 9:00 AM - 2:00 PM',
-      mapSrc: '', // Reemplazar
+      hours: 'Lunes a Viernes: 9:00 AM - 6:00 PM | Sábado: 9:00 AM - 3:00 PM',
+      mapSrc: 'https://maps.app.goo.gl/RRsvPscopwZpnyEz9', // Reemplazar
     },
     {
       id: 3,
-      name: 'Sucursal López Mateos',
-      address: 'Av. López Mateos Sur 0000, La Calma, Zapopan, Jal.',
+      name: 'Sucursal Santa Lucia',
+      address: 'Av. Juan Manuel Ruvalcaba 5250, Col. Jardines Del Valle, Santa Lucía, 45100 Tesistán, Jal.',
       phone: '+52 (33) 3456-7890',
-      hours: 'Lunes a Viernes: 9:00 AM - 7:00 PM | Sábado: 9:00 AM - 2:00 PM',
-      mapSrc: '', // Reemplazar
-    },
-    {
-      id: 4,
-      name: 'Sucursal Tlaquepaque',
-      address: 'Blvd. Marcelino García Barragán 0000, Tlaquepaque, Jal.',
-      phone: '+52 (33) 4567-8901',
-      hours: 'Lunes a Viernes: 9:00 AM - 7:00 PM | Sábado: 9:00 AM - 2:00 PM',
-      mapSrc: '', // Reemplazar
+      hours: 'Lunes a Viernes: 9:00 AM - 6:00 PM | Sábado: 9:00 AM - 3:00 PM',
+      mapSrc: 'https://maps.app.goo.gl/HwdXdYWuz4emVnF36', // Reemplazar
     },
   ];
 
@@ -49,7 +41,7 @@ const About: React.FC = () => {
           </h1>
           <div style={styles.accentLineCentered}></div>
           <p style={styles.heroSubtitle}>
-            Desde 1988, somos líderes en la distribución de pisos, azulejos, baños y 
+            Somos líderes en la distribución de pisos, azulejos, baños y 
             complementos del hogar, combinando calidad de clase mundial con el diseño que tu espacio merece.
           </p>
         </div>
