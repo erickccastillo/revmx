@@ -15,6 +15,8 @@ const Catalog: React.FC = () => {
     category,
   });
 
+  // Asegúrate de que tenga el <Product | null>
+const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const categories = [
     'TODOS', 'PISOS', 'MUROS', 'CERÁMICO', 'MPB', 
     'AZULEJOS', 'DECORATIVOS', 'MONOMANDOS', 'MEZCLADORAS', 'LAVABOS'
@@ -89,7 +91,10 @@ const Catalog: React.FC = () => {
       {/* Lista de Productos */}
       {!loading && !error && (
         <div style={styles.productSection}>
-          <ProductList products={products as Product[]} />
+         <ProductList 
+        products={products as Product[]} 
+        onProductClick={(producto) => setSelectedProduct(producto)} 
+      />
         </div>
       )}
 
