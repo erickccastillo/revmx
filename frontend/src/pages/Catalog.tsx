@@ -4,11 +4,10 @@ import SearchBar from '../components/SearchBar';
 import { useFetchProducts } from '../hooks/useFetchProducts';
 import type { Product } from '../types/Product';
 
-// --- FUNCIÓN INTELIGENTE PARA FORMATEAR LA DESCRIPCIÓN ---
+// --- FUNCIÓN INTELIGENTE CON DISEÑO A 2 COLUMNAS ---
 const formatTechnicalDescription = (text?: string) => {
   if (!text) return <p style={{ color: '#6b7280' }}>Descripción no disponible.</p>;
 
-  // Lista de palabras clave detectadas en tus productos
   const keywords = [
     "MARCA:", "APARIENCIA:", "ACABADO:", "ESPESOR:", "M²/CAJA:", 
     "PZS/CAJA:", "KG/CAJA:", "USO:", "ÁREA DE APLICACIÓN:", 
@@ -18,43 +17,54 @@ const formatTechnicalDescription = (text?: string) => {
 
   let formattedText = text;
   
-  // Agregamos un salto de línea antes de cada palabra clave
   keywords.forEach(keyword => {
     const regex = new RegExp(`\\s*${keyword}`, 'g');
     formattedText = formattedText.replace(regex, `\n${keyword}`);
   });
 
-  // Separamos el texto en líneas limpias
   const lines = formattedText.split('\n').filter(line => line.trim() !== '');
 
   return (
-    <div style={{ marginBottom: '2rem' }}>
+    <div style={{ 
+      display: 'grid', 
+      gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', // Crea 2 columnas dinámicas
+      columnGap: '2rem', 
+      rowGap: '0.75rem',
+      marginBottom: '1.5rem' 
+    }}>
       {lines.map((line, index) => {
         const [key, ...rest] = line.split(':');
         const value = rest.join(':').trim();
         
-        // Si detecta una llave (ej. MARCA) y su valor (ej. CASTEL), lo hace estilo tabla
         if (key && value) {
           return (
             <div key={index} style={{ 
               display: 'flex', 
               justifyContent: 'space-between', 
               borderBottom: '1px solid #f3f4f6', 
-              paddingBottom: '0.5rem',
-              marginBottom: '0.5rem'
+              paddingBottom: '0.4rem',
             }}>
-              <span style={{ fontWeight: 600, color: '#111827', fontSize: '0.9rem' }}>
+              <span style={{ fontWeight: 600, color: '#111827', fontSize: '0.85rem' }}>
                 {key.trim()}
               </span>
-              <span style={{ color: '#6b7280', fontSize: '0.9rem', textAlign: 'right', maxWidth: '60%' }}>
+              <span style={{ color: '#6b7280', fontSize: '0.85rem', textAlign: 'right', maxWidth: '60%' }}>
                 {value}
               </span>
             </div>
           );
         }
         
-        // Si es texto normal, lo deja como párrafo
-        return <p key={index} style={{ color: '#4b5563', fontSize: '0.95rem', margin: '0 0 0.5rem 0' }}>{line}</p>;
+        // Si el texto es muy largo y no tiene "Llave: Valor", que ocupe las dos columnas enteras
+        return (
+          <p key={index} style={{ 
+            color: '#4b5563', 
+            fontSize: '0.95rem', 
+            margin: 0,
+            gridColumn: '1 / -1' 
+          }}>
+            {line}
+          </p>
+        );
       })}
     </div>
   );
@@ -130,7 +140,6 @@ const Catalog: React.FC = () => {
         </div>
       </div>
 
-      {/* Estados de Carga y Error */}
       {loading && (
         <div style={styles.statusMessage}>
           <div style={styles.spinner}></div>
@@ -234,10 +243,10 @@ const Catalog: React.FC = () => {
                   <p style={styles.modalPrice}>${selectedProduct.price?.toFixed(2)} MXN</p>
                 )}
                 
-                {/* AQUI APLICAMOS LA FUNCIÓN PARA DARLE DISEÑO AL TEXTO AMONTONADO */}
+                {/* LA DESCRIPCIÓN TÉCNICA AHORA ESTÁ A 2 COLUMNAS */}
                 {formatTechnicalDescription(selectedProduct.description)}
 
-                {/* Especificaciones Extras (Color, Material, Medidas) */}
+                {/* Especificaciones Extras (Color, Material, Medidas) a 2 columnas */}
                 <div style={styles.specsContainer}>
                   {selectedProduct.color && (
                     <div style={styles.specItem}>
@@ -423,7 +432,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   modalContent: {
     backgroundColor: '#ffffff',
     borderRadius: '16px',
-    maxWidth: '900px',
+    maxWidth: '1050px', // CAMBIO: Aumentado para dar espacio a las 2 columnas
     width: '100%',
     maxHeight: '90vh',
     overflowY: 'auto',
@@ -451,7 +460,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   modalGrid: {
     display: 'flex',
     flexWrap: 'wrap',
-    gap: '2rem',
+    gap: '2.5rem',
     padding: '2.5rem',
   },
   modalImageWrapper: {
@@ -471,7 +480,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     objectFit: 'contain',
   },
   modalDetails: {
-    flex: '1 1 350px',
+    flex: '2 1 450px', // CAMBIO: Le damos más ancho disponible a los detalles
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -497,10 +506,12 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: '#e1b71f',
     marginBottom: '1.5rem',
   },
+  // CAMBIO: Este contenedor ahora también usa Grid de 2 columnas para igualar al de arriba
   specsContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.75rem',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+    columnGap: '2rem',
+    rowGap: '0.75rem',
     marginBottom: '2.5rem',
     backgroundColor: '#f9fafb',
     padding: '1.5rem',
@@ -511,14 +522,16 @@ const styles: { [key: string]: React.CSSProperties } = {
     display: 'flex',
     justifyContent: 'space-between',
     borderBottom: '1px solid #e5e7eb',
-    paddingBottom: '0.5rem',
+    paddingBottom: '0.4rem',
   },
   specLabel: {
     fontWeight: 600,
     color: '#111827',
+    fontSize: '0.85rem'
   },
   specValue: {
     color: '#6b7280',
+    fontSize: '0.85rem'
   },
   modalButton: {
     backgroundColor: '#111827', 
@@ -530,6 +543,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     textDecoration: 'none',
     boxShadow: '0 4px 12px rgba(17, 24, 39, 0.2)',
     transition: 'transform 0.2s',
+    marginTop: 'auto', // Asegura que el botón se empuje hacia abajo si hay espacio
   },
 };
 
