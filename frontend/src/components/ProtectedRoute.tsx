@@ -5,8 +5,14 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default function ProtectedRoute({ children }: Props) {
+export default function ProtectedRoute({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const token = localStorage.getItem("adminToken");
+
+  console.log("Token:", token);
 
   if (!token) {
     return <Navigate to="/login" replace />;
@@ -14,3 +20,4 @@ export default function ProtectedRoute({ children }: Props) {
 
   return <>{children}</>;
 }
+``
