@@ -1,4 +1,5 @@
 // src/routes/auth.ts
+
 import { Router } from "express";
 
 const router = Router();
@@ -12,13 +13,13 @@ router.post("/login", (req, res) => {
   ) {
     return res.json({
       success: true,
-      token: process.env.ADMIN_PASSWORD,
+      token: "admin-authenticated"
     });
   }
 
   return res.status(401).json({
     success: false,
-    message: "Credenciales incorrectas",
+    message: "Credenciales incorrectas"
   });
 });
 
