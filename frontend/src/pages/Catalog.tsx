@@ -15,8 +15,9 @@ const Catalog: React.FC = () => {
     category,
   });
 
-  // Asegúrate de que tenga el <Product | null>
-const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  // Estado que controla qué producto se abre en la ventana flotante
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  
   const categories = [
     'TODOS', 'PISOS', 'MUROS', 'CERÁMICO', 'MPB', 
     'AZULEJOS', 'DECORATIVOS', 'MONOMANDOS', 'MEZCLADORAS', 'LAVABOS'
@@ -92,9 +93,9 @@ const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
       {!loading && !error && (
         <div style={styles.productSection}>
          <ProductList 
-        products={products as Product[]} 
-        onProductClick={(producto) => setSelectedProduct(producto)} 
-      />
+            products={products as Product[]} 
+            onProductClick={(producto) => setSelectedProduct(producto)} 
+          />
         </div>
       )}
 
@@ -144,6 +145,74 @@ const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
           )}
         </div>
       )}
+
+      {/* =========================================
+          MODAL (VENTANA FLOTANTE DE DETALLES)
+          ========================================= */}
+      {selectedProduct && (
+        <div style={styles.modalOverlay} onClick={() => setSelectedProduct(null)}>
+          <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <button style={styles.closeButton} onClick={() => setSelectedProduct(null)}>
+              ✕
+            </button>
+            
+            <div style={styles.modalGrid}>
+              {/* Columna Izquierda: Imagen */}
+              <div style={styles.modalImageWrapper}>
+                {selectedProduct.image_url ? (
+                  <img 
+                    src={selectedProduct.image_url} 
+                    alt={selectedProduct.name} 
+                    style={styles.modalImage} 
+                  />
+                ) : (
+                  <div style={{ color: '#9ca3af', fontWeight: 600 }}>Sin Imagen</div>
+                )}
+              </div>
+
+              {/* Columna Derecha: Detalles */}
+              <div style={styles.modalDetails}>
+                <span style={styles.modalCategory}>{selectedProduct.category}</span>
+                <h2 style={styles.modalTitle}>{selectedProduct.name}</h2>
+                
+                {selectedProduct.price > 0 && (
+                  <p style={styles.modalPrice}>${selectedProduct.price?.toFixed(2)} MXN</p>
+                )}
+                
+                <p style={styles.modalDescription}>
+                  {selectedProduct.description || 'Descripción no disponible para este producto.'}
+                </p>
+
+                {/* Especificaciones */}
+                <div style={styles.specsContainer}>
+                  {selectedProduct.color && (
+                    <div style={styles.specItem}>
+                      <span style={styles.specLabel}>Color</span>
+                      <span style={styles.specValue}>{selectedProduct.color}</span>
+                    </div>
+                  )}
+                  {selectedProduct.material && (
+                    <div style={styles.specItem}>
+                      <span style={styles.specLabel}>Material</span>
+                      <span style={styles.specValue}>{selectedProduct.material}</span>
+                    </div>
+                  )}
+                  {selectedProduct.medidas && (
+                    <div style={styles.specItem}>
+                      <span style={styles.specLabel}>Medidas</span>
+                      <span style={styles.specValue}>{selectedProduct.medidas}</span>
+                    </div>
+                  )}
+                </div>
+
+                <a href="/quote" style={styles.modalButton}>
+                  SOLICITAR COTIZACIÓN
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
@@ -173,7 +242,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   title: {
     fontSize: '2.5rem',
     fontWeight: 800,
-    color: '#bca109',
+    color: '#111827',
     margin: '0 0 1rem 0',
     letterSpacing: '-0.02em',
   },
@@ -188,7 +257,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     backgroundColor: '#ffffff',
     borderRadius: '16px',
     padding: '2rem',
-    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01)',
+    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.05)',
     border: '1px solid #f3f4f6',
     marginBottom: '3rem',
   },
@@ -204,14 +273,14 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   categoryButton: {
     padding: '0.5rem 1.25rem',
-    borderRadius: '9999px', // Forma de píldora
+    borderRadius: '9999px',
     border: '1px solid',
     fontSize: '0.875rem',
     fontWeight: 600,
     transition: 'all 0.2s ease',
   },
   productSection: {
-    minHeight: '400px', // Evita que el layout salte mucho mientras carga
+    minHeight: '400px',
   },
   statusMessage: {
     display: 'flex',
@@ -279,6 +348,140 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: '#6b7280',
     minWidth: '100px',
     textAlign: 'center',
+  },
+
+  /* --- ESTILOS DEL MODAL FLOTANTE --- */
+  modalOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100vw',
+    height: '100vh',
+    backgroundColor: 'rgba(17, 24, 39, 0.85)', // Oscuro semitransparente
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 9999, // Encima de todo el sitio
+    padding: '1rem',
+    boxSizing: 'border-box',
+    backdropFilter: 'blur(5px)',
+  },
+  modalContent: {
+    backgroundColor: '#ffffff',
+    borderRadius: '16px',
+    maxWidth: '900px',
+    width: '100%',
+    maxHeight: '90vh',
+    overflowY: 'auto',
+    position: 'relative',
+    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: '1rem',
+    right: '1rem',
+    background: '#f3f4f6',
+    border: 'none',
+    borderRadius: '50%',
+    width: '36px',
+    height: '36px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '1.2rem',
+    color: '#4b5563',
+    cursor: 'pointer',
+    zIndex: 10,
+    transition: 'background-color 0.2s',
+  },
+  modalGrid: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '2rem',
+    padding: '2.5rem',
+  },
+  modalImageWrapper: {
+    flex: '1 1 350px',
+    backgroundColor: '#f8fafc',
+    borderRadius: '12px',
+    overflow: 'hidden',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '300px',
+  },
+  modalImage: {
+    width: '100%',
+    height: 'auto',
+    maxHeight: '500px',
+    objectFit: 'contain',
+  },
+  modalDetails: {
+    flex: '1 1 350px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  modalCategory: {
+    fontSize: '0.85rem',
+    fontWeight: 700,
+    color: '#e1b71f',
+    letterSpacing: '1px',
+    marginBottom: '0.5rem',
+    textTransform: 'uppercase',
+  },
+  modalTitle: {
+    fontSize: '2rem',
+    fontWeight: 800,
+    color: '#111827',
+    marginBottom: '0.5rem',
+    lineHeight: 1.2,
+  },
+  modalPrice: {
+    fontSize: '1.5rem',
+    fontWeight: 700,
+    color: '#e1b71f',
+    marginBottom: '1.5rem',
+  },
+  modalDescription: {
+    fontSize: '1.05rem',
+    color: '#4b5563',
+    lineHeight: 1.6,
+    marginBottom: '2rem',
+  },
+  specsContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '0.75rem',
+    marginBottom: '2.5rem',
+    backgroundColor: '#f9fafb',
+    padding: '1.5rem',
+    borderRadius: '8px',
+    border: '1px solid #e5e7eb',
+  },
+  specItem: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    borderBottom: '1px solid #e5e7eb',
+    paddingBottom: '0.5rem',
+  },
+  specLabel: {
+    fontWeight: 600,
+    color: '#111827',
+  },
+  specValue: {
+    color: '#6b7280',
+  },
+  modalButton: {
+    backgroundColor: '#111827', // Botón oscuro elegante
+    color: '#ffffff',
+    padding: '1rem',
+    borderRadius: '8px',
+    textAlign: 'center',
+    fontWeight: 700,
+    textDecoration: 'none',
+    boxShadow: '0 4px 12px rgba(17, 24, 39, 0.2)',
+    transition: 'transform 0.2s',
   },
 };
 
