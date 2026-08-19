@@ -42,18 +42,32 @@ const Quote: React.FC = () => {
       </div>
 
       <div style={styles.grid}>
-        {branches.map((branch) => (
-          <div key={branch.id} style={styles.card}>
-            <h2 style={styles.branchTitle}>{branch.name}</h2>
+        {branches.map((branch) => {
+  const whatsappUrl =
+    `https://wa.me/${branch.whatsapp}?text=` +
+    encodeURIComponent(
+      `Hola, me gustaría solicitar una cotización con ${branch.name}.`
+    );
 
-            <p style={styles.address}>{branch.address}</p>
+  return (
+    <div key={branch.id} style={styles.card}>
+      <h2 style={styles.branchTitle}>
+        {branch.name}
+      </h2>
 
-            <p style={styles.phone}>📞 {branch.phone}</p>
+      <p style={styles.address}>
+        {branch.address}
+      </p>
 
-            <a
-              href={`https://wa.me/${branch.whatsapp}?text=${encodeURIComponent(
-                `Hola, me gustaríaener noreferrer"
-              style={styles.whatsappButton}
+      <p style={styles.phone}>
+        📞 {branch.phone}
+      </p>
+
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={styles.whatsappButton}
             >
               Solicitar por WhatsApp
             </a>
