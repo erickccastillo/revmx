@@ -9,6 +9,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
+import Quote from "./pages/Quote";
 import './App.css';
 
 
@@ -22,6 +23,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/about" element={<About />} />
+          <Route path="/quote" element={<Quote />} />
           
           {/* NUEVAS RUTAS DE ADMINISTRADOR */}
           {/* 1. La tabla principal con buscador */}
