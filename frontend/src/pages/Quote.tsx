@@ -42,31 +42,41 @@ const Quote: React.FC = () => {
       </div>
 
       <div style={styles.grid}>
-        {branches.map((branch) => {
-          const whatsappUrl =
-            `https://wa.me/${branch.whatsapp}?text=` +
-            encodeURIComponent(
-              `Hola, me gustaría solicitar una cotización con ${branch.name}.`
-            );
+  {branches.map((branch) => {
+    const whatsappUrl =
+      `https://wa.me/${branch.whatsapp}?text=` +
+      encodeURIComponent(
+        `Hola, me gustaría solicitar una cotización con ${branch.name}.`
+      );
 
-          return (
-            <div key={branch.id} style={styles.card}>
-              <h2 style={styles.branchTitle}>
-                {branch.name}
-              </h2>
+    return (
+      <div key={branch.id} style={styles.card}>
+        <h2 style={styles.branchTitle}>
+          {branch.name}
+        </h2>
 
-              <p style={styles.address}>
-                {branch.address}
-              </p>
+        <p style={styles.address}>
+          {branch.address}
+        </p>
 
-              <p style={styles.phone}>
-                📞 {branch.phone}
-              </p>
+        <p style={styles.phone}>
+          📞 {branch.phone}
+        </p>
 
-              {whatsappUrl}
-                Solicitar por WhatsApp
-              </a>
-            </div>
+             <a
+          href={whatsappUrl}
+          target="_blank/a>
+        ``href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={styles.whatsappButton}
+        >
+          Solicitar por WhatsApp
+        </a>
+      </div>
+    );
+  })}
+</div>
           );
         })}
       </div>
