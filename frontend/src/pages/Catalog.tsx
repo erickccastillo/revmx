@@ -99,8 +99,9 @@ const Catalog: React.FC = () => {
         <div style={styles.accentLine}></div>
         <h2 style={styles.title}>Catálogo de Productos</h2>
         <p style={styles.subtitle}>
-          Explora nuestra colección completa. Pisos y azulejos seleccionados pieza por pieza para tus proyecto.
-          Selecciona el producto para ver los detalless.
+          Explora nuestra colección completa.
+          Pisos y azulejos seleccionados pieza por pieza para tus proyecto.
+          Selecciona el producto para ver los detalles.
         </p>
       </div>
 
