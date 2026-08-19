@@ -1,18 +1,12 @@
-// src/components/ProtectedRoute.tsx
+import React from "react";
 import { Navigate } from "react-router-dom";
 
 type Props = {
   children: React.ReactNode;
 };
 
-export default function ProtectedRoute({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ProtectedRoute({ children }: Props) {
   const token = localStorage.getItem("adminToken");
-
-  console.log("Token:", token);
 
   if (!token) {
     return <Navigate to="/login" replace />;
@@ -20,4 +14,3 @@ export default function ProtectedRoute({
 
   return <>{children}</>;
 }
-``
