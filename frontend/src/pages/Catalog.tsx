@@ -15,79 +15,93 @@ const Catalog: React.FC = () => {
     category,
   });
 
-  const categories = ['TODOS', 'PISOS', 'MUROS','CERAMICO','MPB', 'AZULEJOS', 'DECORATIVOS', 'MONOMANDOS', 'MEZCLADORAS', 'LAVABOS'];
+  const categories = [
+    'TODOS', 'PISOS', 'MUROS', 'CERAMICO', 'MPB', 
+    'AZULEJOS', 'DECORATIVOS', 'MONOMANDOS', 'MEZCLADORAS', 'LAVABOS'
+  ];
 
-  // Función auxiliar para subir al inicio al cambiar de página
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <section style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-      <h2 style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '0.5rem', color: '#0a2a5e' }}>
-        CATÁLOGO
-      </h2>
-      <h3 style={{ fontSize: '1.25rem', marginBottom: '1rem', color: '#FFD700' }}>
-        Nuestra colección completa
-      </h3>
-      <p style={{ marginBottom: '2rem', color: '#555', fontSize: '1rem' }}>
-        Pisos y azulejos seleccionados pieza por pieza. Filtra por categoría o busca por nombre.
-      </p>
-
-      <SearchBar
-        value={query}
-        onChange={(v) => {
-          setQuery(v);
-          setPage(1); // Reiniciar a la página 1 cuando se busca algo nuevo
-        }}
-      />
-
-      <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', margin: '1.5rem 0' }}>
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => {
-              setCategory(cat);
-              setPage(1); // Reiniciar a la página 1 cuando se cambia de categoría
-            }}
-            style={{
-              padding: '0.5rem 1rem',
-              borderRadius: '6px',
-              border: category === cat ? '2px solid #FFD700' : '1px solid #ccc',
-              backgroundColor: category === cat ? '#FFD700' : '#fff',
-              color: category === cat ? '#0a2a5e' : '#333',
-              fontWeight: 600,
-              cursor: 'pointer',
-            }}
-          >
-            {cat}
-          </button>
-        ))}
+    <section style={styles.container}>
+      {/* Cabecera del Catálogo */}
+      <div style={styles.header}>
+        <div style={styles.accentLine}></div>
+        <h2 style={styles.title}>Catálogo de Productos</h2>
+        <p style={styles.subtitle}>
+          Explora nuestra colección completa. Pisos y azulejos seleccionados pieza por pieza para tus proyectos.
+        </p>
       </div>
 
-      {loading && <p>Cargando productos...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {/* Panel de Controles (Búsqueda y Filtros) */}
+      <div style={styles.controlsCard}>
+        <div style={styles.searchWrapper}>
+          <SearchBar
+            value={query}
+            onChange={(v) => {
+              setQuery(v);
+              setPage(1);
+            }}
+          />
+        </div>
+
+        <div style={styles.categoriesWrapper}>
+          {categories.map((cat) => {
+            const isActive = category === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => {
+                  setCategory(cat);
+                  setPage(1);
+                }}
+                style={{
+                  ...styles.categoryButton,
+                  backgroundColor: isActive ? '#0a2a5e' : '#f3f4f6',
+                  color: isActive ? '#ffffff' : '#4b5563',
+                  borderColor: isActive ? '#0a2a5e' : '#e5e7eb',
+                  boxShadow: isActive ? '0 4px 6px -1px rgba(10, 42, 94, 0.2)' : 'none',
+                }}
+              >
+                {cat}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Estados de Carga y Error */}
+      {loading && (
+        <div style={styles.statusMessage}>
+          <div style={styles.spinner}></div>
+          <p>Cargando nuestro catálogo...</p>
+        </div>
+      )}
       
-      {!loading && !error && <ProductList products={products as Product[]} />}
+      {error && (
+        <div style={styles.errorMessage}>
+          <span style={{ fontWeight: 'bold' }}>¡Ups! Ha ocurrido un error:</span> {error}
+        </div>
+      )}
+
+      {/* Lista de Productos */}
+      {!loading && !error && (
+        <div style={styles.productSection}>
+          <ProductList products={products as Product[]} />
+        </div>
+      )}
 
       {/* Controles de Paginación */}
       {!loading && !error && totalProducts > 0 && (
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'center', 
-          marginTop: '3rem',
-          paddingTop: '1rem',
-          borderTop: '1px solid #eaeaea' 
-        }}>
-          
-          <div style={{ fontWeight: 500, color: '#666' }}>
-            Mostrando {products?.length ?? 0} de {totalProducts ?? 0} productos
+        <div style={styles.paginationContainer}>
+          <div style={styles.paginationInfo}>
+            Mostrando <span style={styles.highlightText}>{products?.length ?? 0}</span> de <span style={styles.highlightText}>{totalProducts ?? 0}</span> productos
           </div>
 
-          {/* Botones solo se muestran si hay más de 1 página */}
           {totalPages > 1 && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <div style={styles.paginationControls}>
               <button
                 onClick={() => {
                   setPage((p) => Math.max(1, p - 1));
@@ -95,21 +109,17 @@ const Catalog: React.FC = () => {
                 }}
                 disabled={page === 1}
                 style={{
-                  padding: '0.5rem 1rem',
-                  borderRadius: '6px',
-                  border: '1px solid #ccc',
-                  backgroundColor: page === 1 ? '#f5f5f5' : '#fff',
-                  color: page === 1 ? '#999' : '#333',
+                  ...styles.pageButton,
+                  opacity: page === 1 ? 0.5 : 1,
                   cursor: page === 1 ? 'not-allowed' : 'pointer',
-                  fontWeight: 600,
                 }}
               >
-                Anterior
+                ← Anterior
               </button>
 
-              <span style={{ fontWeight: 600, color: '#0a2a5e' }}>
-                Página {page} de {totalPages}
-              </span>
+              <div style={styles.pageIndicator}>
+                Página <span style={{ fontWeight: 700, color: '#0a2a5e' }}>{page}</span> de {totalPages}
+              </div>
 
               <button
                 onClick={() => {
@@ -118,16 +128,12 @@ const Catalog: React.FC = () => {
                 }}
                 disabled={page === totalPages}
                 style={{
-                  padding: '0.5rem 1rem',
-                  borderRadius: '6px',
-                  border: '1px solid #ccc',
-                  backgroundColor: page === totalPages ? '#f5f5f5' : '#fff',
-                  color: page === totalPages ? '#999' : '#333',
+                  ...styles.pageButton,
+                  opacity: page === totalPages ? 0.5 : 1,
                   cursor: page === totalPages ? 'not-allowed' : 'pointer',
-                  fontWeight: 600,
                 }}
               >
-                Siguiente
+                Siguiente →
               </button>
             </div>
           )}
@@ -135,6 +141,140 @@ const Catalog: React.FC = () => {
       )}
     </section>
   );
+};
+
+// Objeto de estilos para mantener el JSX limpio
+const styles: { [key: string]: React.CSSProperties } = {
+  container: {
+    padding: '4rem 2rem',
+    maxWidth: '1280px',
+    margin: '0 auto',
+    fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+  },
+  header: {
+    textAlign: 'center',
+    marginBottom: '3rem',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  accentLine: {
+    width: '60px',
+    height: '4px',
+    backgroundColor: '#FFD700',
+    borderRadius: '2px',
+    marginBottom: '1.5rem',
+  },
+  title: {
+    fontSize: '2.5rem',
+    fontWeight: 800,
+    color: '#0a2a5e',
+    margin: '0 0 1rem 0',
+    letterSpacing: '-0.02em',
+  },
+  subtitle: {
+    fontSize: '1.125rem',
+    color: '#6b7280',
+    maxWidth: '600px',
+    lineHeight: 1.6,
+    margin: 0,
+  },
+  controlsCard: {
+    backgroundColor: '#ffffff',
+    borderRadius: '16px',
+    padding: '2rem',
+    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01)',
+    border: '1px solid #f3f4f6',
+    marginBottom: '3rem',
+  },
+  searchWrapper: {
+    maxWidth: '600px',
+    margin: '0 auto 2rem auto',
+  },
+  categoriesWrapper: {
+    display: 'flex',
+    gap: '0.75rem',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  categoryButton: {
+    padding: '0.5rem 1.25rem',
+    borderRadius: '9999px', // Forma de píldora
+    border: '1px solid',
+    fontSize: '0.875rem',
+    fontWeight: 600,
+    transition: 'all 0.2s ease',
+  },
+  productSection: {
+    minHeight: '400px', // Evita que el layout salte mucho mientras carga
+  },
+  statusMessage: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '4rem 0',
+    color: '#6b7280',
+    fontSize: '1.125rem',
+  },
+  spinner: {
+    width: '40px',
+    height: '40px',
+    border: '3px solid #f3f4f6',
+    borderTopColor: '#0a2a5e',
+    borderRadius: '50%',
+    animation: 'spin 1s linear infinite',
+    marginBottom: '1rem',
+  },
+  errorMessage: {
+    backgroundColor: '#fef2f2',
+    color: '#991b1b',
+    padding: '1rem 1.5rem',
+    borderRadius: '8px',
+    border: '1px solid #f87171',
+    textAlign: 'center',
+    margin: '2rem 0',
+  },
+  paginationContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: '4rem',
+    paddingTop: '2rem',
+    borderTop: '1px solid #e5e7eb',
+    flexWrap: 'wrap',
+    gap: '1.5rem',
+  },
+  paginationInfo: {
+    fontSize: '0.95rem',
+    color: '#6b7280',
+  },
+  highlightText: {
+    fontWeight: 700,
+    color: '#111827',
+  },
+  paginationControls: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '1rem',
+  },
+  pageButton: {
+    padding: '0.5rem 1.25rem',
+    borderRadius: '8px',
+    border: '1px solid #e5e7eb',
+    backgroundColor: '#ffffff',
+    color: '#374151',
+    fontWeight: 600,
+    fontSize: '0.9rem',
+    boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+    transition: 'all 0.2s',
+  },
+  pageIndicator: {
+    fontSize: '0.95rem',
+    color: '#6b7280',
+    minWidth: '100px',
+    textAlign: 'center',
+  },
 };
 
 export default Catalog;
