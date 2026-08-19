@@ -7,8 +7,10 @@ import AdminProductForm from './pages/AdminProductForm';
 import About from './pages/About'; 
 import Header from './components/Header';
 import Footer from './components/Footer';
-import './App.css';
+import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
+import './App.css';
+
 
 const App: React.FC = () => {
   return (
