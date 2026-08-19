@@ -8,6 +8,7 @@ import About from './pages/About';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import './App.css';
+import Login from "./pages/Login";
 
 const App: React.FC = () => {
   return (
@@ -15,13 +16,15 @@ const App: React.FC = () => {
       <Header />
       <main className="container">
         <Routes>
+          <Route path="/login" element={<Login />} />
           <Route path="/" element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/about" element={<About />} />
           
           {/* NUEVAS RUTAS DE ADMINISTRADOR */}
           {/* 1. La tabla principal con buscador */}
-          <Route path="/admin" element={<AdminDashboard />} /> 
+          
+          <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} /> 
           
           {/* 2. El formulario en modo "Crear nuevo" */}
           <Route path="/admin/new" element={<AdminProductForm />} /> 
