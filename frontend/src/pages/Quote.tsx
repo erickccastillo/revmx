@@ -31,7 +31,7 @@ const Quote: React.FC = () => {
   return (
     <section style={styles.container}>
       <div style={styles.header}>
-        <div style={styles.accentLine}></div>
+        <div style={styles.accentLine} />
 
         <h1 style={styles.title}>Solicitar Cotización</h1>
 
@@ -42,55 +42,38 @@ const Quote: React.FC = () => {
       </div>
 
       <div style={styles.grid}>
-  {branches.map((branch) => {
-    const whatsappUrl =
-      `https://wa.me/${branch.whatsapp}?text=` +
-      encodeURIComponent(
-        `Hola, me gustaría solicitar una cotización con ${branch.name}.`
-      );
+        {branches.map((branch) => {
+          const whatsappUrl = `https://wa.me/${
+            branch.whatsapp
+          }?text=${encodeURIComponent(
+            `Hola, me gustaría solicitar una cotización con ${branch.name}.`
+          )}`;
 
-    return (
-      <div key={branch.id} style={styles.card}>
-        <h2 style={styles.branchTitle}>
-          {branch.name}
-        </h2>
+          return (
+            <div key={branch.id} style={styles.card}>
+              <h2 style={styles.branchTitle}>{branch.name}</h2>
 
-        <p style={styles.address}>
-          {branch.address}
-        </p>
+              <p style={styles.address}>
+                {branch.address}
+              </p>
 
-        <p style={styles.phone}>
-          📞 {branch.phone}
-        </p>
+              <p style={styles.phone}>
+                📞 {branch.phone}
+              </p>
 
-             <a
-          href={whatsappUrl}
-          target="_blank/a>
-        ``href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={styles.whatsappButton}
-        >
-          Solicitar por WhatsApp
-        </a>
-      </div>
-    );
-  })}
-</div>
-          );
-        })}
-      </div>
-    </section>
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style=/section>
   );
 };
 
-const styles: { [key: string]: React.CSSProperties } = {
+const styles: Record<string, React.CSSProperties> = {
   container: {
-    padding: "4rem 2rem",
     maxWidth: "1200px",
     margin: "0 auto",
-    fontFamily:
-      '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    padding: "4rem 2rem",
   },
 
   header: {
@@ -102,19 +85,18 @@ const styles: { [key: string]: React.CSSProperties } = {
     width: "60px",
     height: "4px",
     backgroundColor: "#FFD700",
-    borderRadius: "999px",
-    margin: "0 auto 1.5rem",
+    borderRadius: "9999px",
+    margin: "0 auto 1.5rem auto",
   },
 
   title: {
     fontSize: "2.5rem",
     fontWeight: 800,
     color: "#0a2a5e",
-    margin: "0 0 1rem 0",
+    marginBottom: "1rem",
   },
 
   subtitle: {
-    fontSize: "1.1rem",
     color: "#6b7280",
     maxWidth: "700px",
     margin: "0 auto",
@@ -129,16 +111,16 @@ const styles: { [key: string]: React.CSSProperties } = {
 
   card: {
     backgroundColor: "#ffffff",
+    border: "1px solid #e5e7eb",
     borderRadius: "16px",
     padding: "2rem",
-    border: "1px solid #f3f4f6",
-    boxShadow: "0 10px 25px -5px rgba(0,0,0,0.05)",
+    boxShadow: "0 10px 25px rgba(0,0,0,0.05)",
   },
 
   branchTitle: {
     color: "#0a2a5e",
-    fontSize: "1.4rem",
     fontWeight: 700,
+    fontSize: "1.35rem",
     marginBottom: "1rem",
   },
 
@@ -146,12 +128,11 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: "#6b7280",
     lineHeight: 1.6,
     marginBottom: "1rem",
-    minHeight: "100px",
   },
 
   phone: {
-    fontWeight: 600,
     color: "#111827",
+    fontWeight: 600,
     marginBottom: "1.5rem",
   },
 
@@ -159,14 +140,12 @@ const styles: { [key: string]: React.CSSProperties } = {
     display: "block",
     width: "100%",
     textAlign: "center",
+    padding: "14px",
     backgroundColor: "#25D366",
     color: "#ffffff",
     textDecoration: "none",
-    padding: "14px",
     borderRadius: "10px",
     fontWeight: 700,
-    boxSizing: "border-box",
-    boxShadow: "0 4px 10px rgba(37, 211, 102, 0.25)",
   },
 };
 
