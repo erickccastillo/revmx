@@ -2,14 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useFetchProducts } from '../hooks/useFetchProducts';
 import SearchBar from '../components/SearchBar';
-import { useNavigate } from "react-router-dom";
 
-const navigate = useNavigate();
-
-const handleLogout = () => {
-  localStorage.removeItem("adminToken");
-  navigate("/login");
-};
 
 const AdminDashboard: React.FC = () => {
   const [query, setQuery] = useState('');
