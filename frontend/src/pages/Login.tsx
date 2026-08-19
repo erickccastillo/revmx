@@ -3,15 +3,44 @@ import React, { useState } from "react";
 export default function Login() {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (user === "admin" && password === "123456") {
-      localStorage.setItem("adminToken", "logged");
+    try {
+      setLoading(true);
+
+      const response = await fetch(
+        "https://catalogo-backend-6pnx.onrender.com/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: user,
+            password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+
+      localStorage.setItem(
+        "adminToken",
+        data.token
+      );
+
       window.location.href = "/admin";
-    } else {
-      alert("Credenciales incorrectas");
+    } catch (error) {
+      alert("Usuario o contraseña incorrectos");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -25,8 +54,7 @@ export default function Login() {
         </h1>
 
         <p style={styles.subtitle}>
-          Inicia sesión para administrar productos,
-          inventario y contenido del catálogo.
+          Inicia sesión para administrar el catálogo.
         </p>
 
         <form onSubmit={handleSubmit}>
@@ -46,8 +74,12 @@ export default function Login() {
             style={styles.input}
           />
 
-          <button type="submit" style={styles.button}>
-            Ingresar
+          <button
+            type="submit"
+            style={styles.button}
+            disabled={loading}
+          >
+            {loading ? "Validando..." : "Ingresar"}
           </button>
         </form>
       </div>
@@ -63,59 +95,48 @@ const styles: { [key: string]: React.CSSProperties } = {
     alignItems: "center",
     padding: "2rem",
   },
-
   card: {
     width: "100%",
-    maxWidth: "480px",
+    maxWidth: "500px",
     background: "#ffffff",
     borderRadius: "16px",
     padding: "2.5rem",
-    boxShadow: "0 10px 25px rgba(0,0,0,0.08)",
-    border: "1px solid #f3f4f6",
+    boxShadow: "0 10px 25px -5px rgba(0,0,0,0.08)",
   },
-
   accentLine: {
     width: "60px",
     height: "4px",
-    backgroundColor: "#FFD700",
+    background: "#FFD700",
     borderRadius: "999px",
     marginBottom: "1.5rem",
   },
-
   title: {
+    color: "#0a2a5e",
     fontSize: "2rem",
     fontWeight: 800,
-    color: "#0a2a5e",
-    marginBottom: "0.75rem",
+    marginBottom: "1rem",
   },
-
   subtitle: {
     color: "#6b7280",
-    lineHeight: 1.6,
     marginBottom: "2rem",
   },
-
   input: {
     width: "100%",
-    padding: "14px 16px",
+    padding: "14px",
     marginBottom: "1rem",
-    borderRadius: "10px",
     border: "1px solid #d1d5db",
+    borderRadius: "10px",
     fontSize: "1rem",
     boxSizing: "border-box",
-    outline: "none",
   },
-
   button: {
     width: "100%",
     padding: "14px",
-    backgroundColor: "#0a2a5e",
-    color: "#ffffff",
     border: "none",
     borderRadius: "10px",
+    background: "#0a2a5e",
+    color: "#fff",
     fontWeight: 700,
-    fontSize: "1rem",
     cursor: "pointer",
-    boxShadow: "0 4px 10px rgba(10,42,94,0.2)",
   },
 };
