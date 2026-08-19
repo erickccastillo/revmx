@@ -15,23 +15,23 @@ const branches: Branch[] = [
     address:
       "Av. Base Aerea 1273a, El Triángulo, 45138 Nuevo México, Jal.",
     phone: "+52 3315876043",
-    whatsapp: "523315876043",
+    whatsapp: "",
   },
   {
     id: 2,
     name: "Sucursal Camino Viejo",
     address:
       "Camino Viejo a Tesistán 1071A, La Casita, Los Girasoles, 45138 Zapopan, Jal.",
-    phone: "+52 3323456789",
-    whatsapp: "523323456789",
+    phone: "+52 ",
+    whatsapp: "",
   },
   {
     id: 3,
     name: "Sucursal Santa Lucía",
     address:
       "Av. Juan Manuel Ruvalcaba 5250, Col. Jardines Del Valle, Santa Lucía, 45100 Tesistán, Jal.",
-    phone: "+52 3334567890",
-    whatsapp: "523334567890",
+    phone: "+52 ",
+    whatsapp: "",
   },
 ];
 
