@@ -2,9 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useFeaturedProducts } from '../hooks/useFeaturedProducts';
 
-// IMPORTANTE: Para asegurar que la imagen cargue, expórtala así si está en src:
-// import homeBg from '../images/home.png'; 
-// (Si usas el import, cambia la línea de backgroundImage a: `url(${homeBg})`)
+// IMPORTANTE: Si la imagen no carga, descomenta esta línea y usa homeBg en el backgroundImage
+// import homeBg from '../images/home.png';
 
 const Home: React.FC = () => {
   const { products, loading } = useFeaturedProducts();
@@ -41,11 +40,11 @@ const Home: React.FC = () => {
         </div>
       </main>
 
-      {/* Sección Sobre Nosotros */}
+      {/* Sección Sobre Nosotros (Fondo Oscuro Elegante) */}
       <section style={styles.aboutSection}>
         <div style={styles.aboutContainer}>
           <h2 style={styles.sectionOverline}>SOBRE NOSOTROS</h2>
-          <h1 style={styles.sectionTitleDark}>Calidad sin concesiones, diseño con propósito.</h1>
+          <h1 style={styles.sectionTitleLight}>Calidad sin concesiones, diseño con propósito.</h1>
           <div style={styles.accentLineCentered}></div>
           <p style={styles.aboutText}>
             En Revestimento creemos que un piso o azulejo es mucho más que un material: 
@@ -56,7 +55,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Sección Destacados */}
+      {/* Sección Destacados (Fondo Blanco Puro) */}
       <section style={styles.featuredSection}>
         <div style={styles.featuredHeader}>
           <div>
@@ -91,23 +90,46 @@ const Home: React.FC = () => {
         )}
       </section>
 
-      {/* Sección Beneficios */}
+      {/* Sección Beneficios (Fondo Gris Perla) */}
       <section style={styles.benefitsSection}>
         <div style={styles.benefitsGrid}>
+          {/* Beneficio 1 */}
           <div style={styles.benefitItem}>
-            <div style={styles.iconWrapper}>🎨</div>
+            <div style={styles.iconWrapper}>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e1b71f" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 12 12 17 22 12"></polyline>
+                <polyline points="2 17 12 22 22 17"></polyline>
+              </svg>
+            </div>
             <h3 style={styles.benefitTitle}>Diseño curado</h3>
-            <p style={styles.benefitText}>Cada pieza es seleccionada por nuestro equipo de diseño.</p>
+            <p style={styles.benefitText}>Cada pieza es minuciosamente seleccionada por nuestro equipo de diseño.</p>
           </div>
+          
+          {/* Beneficio 2 */}
           <div style={styles.benefitItem}>
-            <div style={styles.iconWrapper}>🛡️</div>
+            <div style={styles.iconWrapper}>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e1b71f" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <polyline points="9 12 11 14 15 10"></polyline>
+              </svg>
+            </div>
             <h3 style={styles.benefitTitle}>Garantía total</h3>
-            <p style={styles.benefitText}>Materiales certificados con garantía extendida de 10 años.</p>
+            <p style={styles.benefitText}>Materiales certificados con garantía extendida para tu tranquilidad.</p>
           </div>
+
+          {/* Beneficio 3 */}
           <div style={styles.benefitItem}>
-            <div style={styles.iconWrapper}>⚡</div>
+            <div style={styles.iconWrapper}>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e1b71f" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="1" y="3" width="15" height="13"></rect>
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                <circle cx="18.5" cy="18.5" r="2.5"></circle>
+              </svg>
+            </div>
             <h3 style={styles.benefitTitle}>Entrega ágil</h3>
-            <p style={styles.benefitText}>Logística propia para entregas rápidas en obra.</p>
+            <p style={styles.benefitText}>Logística propia diseñada para entregas rápidas y seguras en obra.</p>
           </div>
         </div>
       </section>
@@ -135,7 +157,6 @@ const styles: { [key: string]: React.CSSProperties } = {
   pageWrapper: {
     fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
   },
-  // Hero
   heroSection: {
     position: 'relative',
     width: '100%',
@@ -150,8 +171,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   heroBackground: {
     position: 'absolute',
     inset: 0,
-    // El gradiente superpuesto ayuda a que el texto blanco sea siempre legible, sin importar la foto.
-    backgroundImage: 'linear-gradient(to right, rgba(10, 42, 94, 0.9) 0%, rgba(10, 42, 94, 0.4) 100%), url("/src/images/home.png")',
+    backgroundImage: 'linear-gradient(to right, rgba(10, 42, 94, 0.95) 0%, rgba(10, 42, 94, 0.4) 100%), url("/src/images/home.png")',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     zIndex: -1,
@@ -168,8 +188,8 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontSize: '0.85rem',
     letterSpacing: '2px',
     fontWeight: 600,
-    color: '#e6c400',
-    backgroundColor: 'rgba(230, 196, 0, 0.1)',
+    color: '#e1b71f',
+    backgroundColor: 'rgba(225, 183, 31, 0.15)',
     padding: '6px 12px',
     borderRadius: '4px',
     marginBottom: '2rem',
@@ -177,11 +197,11 @@ const styles: { [key: string]: React.CSSProperties } = {
   badgeDot: {
     width: '6px',
     height: '6px',
-    backgroundColor: '#e6c400',
+    backgroundColor: '#e1b71f',
     borderRadius: '50%',
   },
   heroTitle: {
-    fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', // Responsivo natural
+    fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
     marginBottom: '1.5rem',
     fontWeight: 800,
     color: '#ffffff',
@@ -189,14 +209,14 @@ const styles: { [key: string]: React.CSSProperties } = {
     letterSpacing: '-0.02em',
   },
   textHighlight: {
-    color: '#f8f9fa',
+    color: '#f3f4f6',
     opacity: 0.9,
   },
   heroSubtitle: {
     fontSize: '1.25rem',
     marginBottom: '3rem',
     lineHeight: 1.6,
-    color: '#e2e8f0',
+    color: '#e5e7eb',
     maxWidth: '600px',
   },
   heroButtons: {
@@ -212,38 +232,44 @@ const styles: { [key: string]: React.CSSProperties } = {
     textDecoration: 'none',
     fontWeight: 700,
     fontSize: '1rem',
-    boxShadow: '0 4px 14px rgba(225, 183, 31, 0.4)',
+    boxShadow: '0 4px 14px rgba(225, 183, 31, 0.3)',
     transition: 'transform 0.2s, box-shadow 0.2s',
     display: 'inline-block',
     textAlign: 'center',
   },
   secondaryButtonHero: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
     color: '#ffffff',
     padding: '1rem 2rem',
     borderRadius: '6px',
     textDecoration: 'none',
     fontWeight: 600,
-    border: '1px solid rgba(255, 255, 255, 0.3)',
-    backdropFilter: 'blur(4px)',
-    transition: 'background-color 0.2s',
+    border: '1px solid rgba(255, 255, 255, 0.2)',
+    backdropFilter: 'blur(8px)',
     display: 'inline-block',
     textAlign: 'center',
   },
   
-  // Secciones Generales
+  // Utilidades de Texto
   sectionOverline: {
     fontSize: '0.875rem',
     letterSpacing: '2px',
-    marginBottom: '0.5rem',
-    color: '#c9a200',
+    marginBottom: '0.75rem',
+    color: '#e1b71f',
     fontWeight: 700,
+  },
+  sectionTitleLight: {
+    fontSize: '2.5rem',
+    marginBottom: '1.5rem',
+    fontWeight: 800,
+    color: '#ffffff',
+    letterSpacing: '-0.02em',
   },
   sectionTitleDark: {
     fontSize: '2.5rem',
     marginBottom: '1.5rem',
     fontWeight: 800,
-    color: '#0a2a5e',
+    color: '#111827',
     letterSpacing: '-0.02em',
   },
   accentLineCentered: {
@@ -254,10 +280,10 @@ const styles: { [key: string]: React.CSSProperties } = {
     borderRadius: '2px',
   },
 
-  // Sobre Nosotros
+  // Sobre Nosotros (Fondo Elegante Oscuro)
   aboutSection: {
-    backgroundColor: '#f5f0e8',
-    padding: '6rem 2rem',
+    backgroundColor: '#111827', // Un gris/azul medianoche muy elegante
+    padding: '7rem 2rem',
     textAlign: 'center',
   },
   aboutContainer: {
@@ -267,7 +293,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   aboutText: {
     fontSize: '1.2rem',
     lineHeight: 1.8,
-    color: '#4b5563',
+    color: '#9ca3af', // Gris claro para contraste suave
   },
 
   // Destacados
@@ -301,9 +327,8 @@ const styles: { [key: string]: React.CSSProperties } = {
     backgroundColor: '#fff',
     borderRadius: '12px',
     overflow: 'hidden',
-    boxShadow: '0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.01)',
+    boxShadow: '0 10px 25px -5px rgba(0,0,0,0.05)',
     border: '1px solid #f3f4f6',
-    transition: 'transform 0.3s ease',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -321,13 +346,14 @@ const styles: { [key: string]: React.CSSProperties } = {
     position: 'absolute',
     top: '1rem',
     left: '1rem',
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
     color: '#0a2a5e',
     padding: '4px 12px',
     borderRadius: '4px',
     fontSize: '0.75rem',
     fontWeight: 700,
     letterSpacing: '1px',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
   },
   cardBody: {
     padding: '1.5rem',
@@ -345,10 +371,10 @@ const styles: { [key: string]: React.CSSProperties } = {
     lineHeight: 1.5,
   },
 
-  // Beneficios
+  // Beneficios (Fondo Gris Perla Claro)
   benefitsSection: {
-    backgroundColor: '#f9f9f9',
-    padding: '5rem 5%',
+    backgroundColor: '#f8fafc', // Gris perla súper limpio
+    padding: '6rem 5%',
   },
   benefitsGrid: {
     display: 'grid',
@@ -359,31 +385,32 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   benefitItem: {
     textAlign: 'center',
-    padding: '2rem',
+    padding: '2.5rem 2rem',
     backgroundColor: '#ffffff',
     borderRadius: '16px',
-    boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)',
+    boxShadow: '0 4px 20px -2px rgba(0,0,0,0.03)',
+    border: '1px solid #f1f5f9',
   },
   iconWrapper: {
     width: '64px',
     height: '64px',
     margin: '0 auto 1.5rem auto',
-    backgroundColor: '#f5f0e8',
-    borderRadius: '50%',
+    backgroundColor: 'rgba(225, 183, 31, 0.1)', // Fondo dorado muy suave
+    borderRadius: '16px', // Cuadrado redondeado para verse más moderno
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize: '1.75rem',
   },
   benefitTitle: {
-    fontWeight: 700,
+    fontWeight: 800,
     fontSize: '1.25rem',
-    color: '#0a2a5e',
+    color: '#111827',
     marginBottom: '0.75rem',
   },
   benefitText: {
-    color: '#6b7280',
+    color: '#64748b',
     lineHeight: 1.6,
+    fontSize: '0.95rem',
   },
 
   // CTA
@@ -409,13 +436,12 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   ctaSubtitle: {
     fontSize: '1.15rem',
-    color: '#9ca3af',
+    color: '#bfdbfe',
   },
   ctaButtonWrapper: {
     flexShrink: 0,
   },
   
-  // Utilidades
   loadingContainer: {
     display: 'flex',
     flexDirection: 'column',
