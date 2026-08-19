@@ -72,7 +72,7 @@ const Quote: React.FC = () => {
               Solicitar por WhatsApp
             </a>
           </div>
-        ))}
+        ))};
       </div>
     </section>
   );
