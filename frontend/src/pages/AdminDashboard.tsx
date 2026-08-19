@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useFetchProducts } from '../hooks/useFetchProducts';
 import SearchBar from '../components/SearchBar';
+import { useNavigate } from "react-router-dom";
 
+const navigate = useNavigate();
+
+const handleLogout = () => {
+  localStorage.removeItem("adminToken");
+  navigate("/login");
+};
 
 const AdminDashboard: React.FC = () => {
   const [query, setQuery] = useState('');
@@ -20,7 +27,20 @@ const AdminDashboard: React.FC = () => {
     <div style={{ padding: '2rem', paddingTop: '120px', maxWidth: '1000px', margin: '0 auto', minHeight: '80vh' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
         <h2 style={{ fontSize: '2rem', color: '#0a2a5e', margin: 0 }}>Gestión de Productos</h2>
-        
+                    <button
+              onClick={handleLogout}
+              style={{
+                backgroundColor: "#dc2626",
+                color: "#fff",
+                border: "none",
+                borderRadius: "8px",
+                padding: "10px 16px",
+                cursor: "pointer",
+                fontWeight: 600,
+              }}
+            >
+              Cerrar sesión
+            </button>
         {/* Botón para crear un nuevo producto */}
         <Link 
           to="/admin/new" 
