@@ -5,28 +5,27 @@ const About: React.FC = () => {
   const branches = [
     {
       id: 1,
-      name: 'Sucursal Base Aerea',
+      name: 'Sucursal Base Aérea',
       address: 'Av. Base Aerea 1273a, El Triángulo, 45138 Nuevo México, Jal.',
       phone: '+52 3315876043',
       hours: 'Lunes a Viernes: 9:00 AM - 6:00 PM | Sábado: 9:00 AM - 3:00 PM',
-      // Pega aquí la URL que viene dentro del src="..." del iframe de Google Maps
-      mapSrc: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d36728.622073416365!2d-103.45902422568359!3d20.744242900000007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428af00783ce331%3A0x9de982cbd7c0a811!2sPisos%20y%20azulejos%20Revestimento!5e1!3m2!1ses!2smx!4v1787104199164!5m2!1ses!2smx', 
+      mapSrc: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d36728.622073416365!2d-103.45902422568359!3d20.744242900000007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428af00783ce331%3A0x9de982cbd7c0a811!2sPisos%20y%20azulejos%20Revestimento!5e1!3m2!1ses!2smx!4v1787104414969!5m2!1ses!2smx', 
     },
     {
       id: 2,
       name: 'Sucursal Camino Viejo',
       address: 'Camino Viejo a Tesistan 1071A, La Casita, Los Girasoles, 45138 Zapopan, Jal.',
-      phone: '+52 (33) 2345-6789',
+      phone: '+52 33 2345 6789', 
       hours: 'Lunes a Viernes: 9:00 AM - 6:00 PM | Sábado: 9:00 AM - 3:00 PM',
-      mapSrc: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d36728.622073416365!2d-103.45902422568359!3d20.744242900000007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428adc5920464ed%3A0xb5a33f14f5754ca3!2sPISOS%20Y%20AZULEJOS%20REVESTIMENTO!5e1!3m2!1ses!2smx!4v1787104164544!5m2!1ses!2smx', // Reemplazar
+      mapSrc: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d36728.622073416365!2d-103.45902422568359!3d20.744242900000007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428adc5920464ed%3A0xb5a33f14f5754ca3!2sPISOS%20Y%20AZULEJOS%20REVESTIMENTO!5e1!3m2!1ses!2smx!4v1787104437069!5m2!1ses!2smx',
     },
     {
       id: 3,
-      name: 'Sucursal Santa Lucia',
+      name: 'Sucursal Santa Lucía',
       address: 'Av. Juan Manuel Ruvalcaba 5250, Col. Jardines Del Valle, Santa Lucía, 45100 Tesistán, Jal.',
-      phone: '+52 (33) 3456-7890',
+      phone: '+52 33 3456 7890', 
       hours: 'Lunes a Viernes: 9:00 AM - 6:00 PM | Sábado: 9:00 AM - 3:00 PM',
-      mapSrc: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d36714.98821683531!2d-103.5347675256836!3d20.800324700000008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428a6fde4aff44f%3A0x4f405b8044bb783f!2sRevestimento%20Pisos%20Azulejos%20Banos!5e1!3m2!1ses!2smx!4v1787104025342!5m2!1ses!2smx', // Reemplazar
+      mapSrc: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d36714.98821683531!2d-103.53476752568359!3d20.800324700000008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428a6fde4aff44f%3A0x4f405b8044bb783f!2sRevestimento%20Pisos%20Azulejos%20Banos!5e1!3m2!1ses!2smx!4v1787104451099!5m2!1ses!2smx',
     },
   ];
 
@@ -135,7 +134,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   // Hero Section
   heroSection: {
     backgroundColor: '#111827', // Gris Carbón / Azul Medianoche
-    padding: '120px 5% 60px 5%', // Padding superior alto para no quedar debajo del Header fijo
+    padding: '120px 5% 60px 5%',
     textAlign: 'center',
     color: '#ffffff',
   },
@@ -159,7 +158,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     letterSpacing: '-0.02em',
   },
   textHighlight: {
-    color: '#e1b71f', // Toque dorado en el título
+    color: '#e1b71f',
   },
   accentLineCentered: {
     width: '60px',
@@ -201,7 +200,7 @@ const styles: { [key: string]: React.CSSProperties } = {
 
   // Locations Section
   locationsSection: {
-    backgroundColor: '#f8fafc', // Gris perla limpio
+    backgroundColor: '#f8fafc', 
     padding: '6rem 5%',
   },
   locationsHeader: {
@@ -261,7 +260,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   mapContainer: {
     width: '100%',
-    height: '250px', // Altura del recuadro del mapa
+    height: '300px', // Lo hice un poco más alto para que el mapa se aprecie mejor
     backgroundColor: '#e5e7eb',
     borderTop: '1px solid #f1f5f9',
   },
