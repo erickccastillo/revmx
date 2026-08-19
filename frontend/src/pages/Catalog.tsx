@@ -99,7 +99,8 @@ const Catalog: React.FC = () => {
         <div style={styles.accentLine}></div>
         <h2 style={styles.title}>Catálogo de Productos</h2>
         <p style={styles.subtitle}>
-          Explora nuestra colección completa. Pisos y azulejos seleccionados pieza por pieza para tus proyectos.
+          Explora nuestra colección completa. Pisos y azulejos seleccionados pieza por pieza para tus proyecto.
+          Selecciona el producto para ver los detalless.
         </p>
       </div>
 
@@ -311,7 +312,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   subtitle: {
     fontSize: '1.125rem',
-    color: '#6b7280',
+    color: '#E3DAC9',
     maxWidth: '600px',
     lineHeight: 1.6,
     margin: 0,
