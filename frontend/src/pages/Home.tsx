@@ -83,7 +83,6 @@ const Home: React.FC = () => {
                   </div>
                   <div style={styles.cardBody}>
                     <h3 style={styles.cardTitle}>{p.name}</h3>
-                    {/* La descripción ha sido eliminada a petición */}
                   </div>
                 </div>
               ))}
@@ -173,7 +172,8 @@ const styles: { [key: string]: React.CSSProperties } = {
   heroBackground: {
     position: 'absolute',
     inset: 0,
-    backgroundImage: 'linear-gradient(to right, rgba(10, 42, 94, 0.95) 0%, rgba(10, 42, 94, 0.4) 100%), url("/src/images/home.png")',
+    // CAMBIO AQUI: Degradado a base de Gris oscuro/Carbón elegante (#111827)
+    backgroundImage: 'linear-gradient(to right, rgba(17, 24, 39, 0.95) 0%, rgba(17, 24, 39, 0.4) 100%), url("/src/images/home.png")',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     zIndex: -1,
@@ -228,7 +228,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   primaryButton: {
     backgroundColor: '#e1b71f',
-    color: '#0a2a5e',
+    color: '#111827', // CAMBIO AQUI: Texto gris oscuro en lugar de azul brillante
     padding: '1rem 2rem',
     borderRadius: '6px',
     textDecoration: 'none',
@@ -262,7 +262,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   sectionTitleLight: {
     fontSize: '2.5rem',
-    lineHeight: 1.2,          // <-- CORRECCIÓN: Soluciona el texto encimado
+    lineHeight: 1.2,
     marginBottom: '1.5rem',
     fontWeight: 800,
     color: '#ffffff',
@@ -270,7 +270,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   sectionTitleDark: {
     fontSize: '2.5rem',
-    lineHeight: 1.2,          // <-- CORRECCIÓN: Interlineado para evitar empalmes
+    lineHeight: 1.2,
     marginBottom: '1.5rem',
     fontWeight: 800,
     color: '#111827',
@@ -301,14 +301,14 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: '#9ca3af',
   },
 
-  // Destacados - CORRECCIÓN LATERALES NEGROS
+  // Destacados
   featuredSectionWrapper: {
-    backgroundColor: '#ffffff', // El fondo se extiende al 100% de la pantalla
+    backgroundColor: '#ffffff',
     width: '100%',
   },
   featuredContainer: {
     padding: '6rem 5%',
-    maxWidth: '1400px',         // Solo el contenido se limita a 1400px
+    maxWidth: '1400px',
     margin: '0 auto',
   },
   featuredHeader: {
@@ -320,7 +320,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     gap: '1rem',
   },
   textLink: {
-    color: '#0a2a5e',
+    color: '#111827', // CAMBIO AQUI: Link oscuro y elegante
     fontWeight: 600,
     textDecoration: 'none',
     borderBottom: '2px solid #e1b71f',
@@ -355,7 +355,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     top: '1rem',
     left: '1rem',
     backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    color: '#0a2a5e',
+    color: '#111827', // CAMBIO AQUI: Etiqueta oscura
     padding: '4px 12px',
     borderRadius: '4px',
     fontSize: '0.75rem',
@@ -368,13 +368,13 @@ const styles: { [key: string]: React.CSSProperties } = {
     flexGrow: 1,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center', // Centra verticalmente si no hay descripción
+    justifyContent: 'center',
   },
   cardTitle: {
     fontSize: '1.15rem',
     fontWeight: 700,
     color: '#111827',
-    margin: 0,                // Quitamos el margen porque ya no hay texto abajo
+    margin: 0,
   },
 
   // Beneficios
@@ -422,7 +422,7 @@ const styles: { [key: string]: React.CSSProperties } = {
 
   // CTA
   ctaSection: {
-    backgroundColor: '#0a2a5e',
+    backgroundColor: '#111827', // CAMBIO AQUI: Fondo elegante en lugar de azul
     padding: '5rem 5%',
     width: '100%',
   },
@@ -444,7 +444,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   ctaSubtitle: {
     fontSize: '1.15rem',
-    color: '#bfdbfe',
+    color: '#9ca3af',
   },
   ctaButtonWrapper: {
     flexShrink: 0,
