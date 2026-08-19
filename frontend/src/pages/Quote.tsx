@@ -62,12 +62,18 @@ const Quote: React.FC = () => {
               </p>
 
               <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                style=/section>
-  );
-};
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={styles.whatsappButton}
+          >
+            Solicitar por WhatsApp
+          </a>
+</div>
+);
+
+})}
+</div>
 
 const styles: Record<string, React.CSSProperties> = {
   container: {
