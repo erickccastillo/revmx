@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useFeaturedProducts } from '../hooks/useFeaturedProducts';
-
+import homeBg from '../images/home.png';
 // IMPORTANTE: Si la imagen no carga, descomenta esta línea y usa homeBg en el backgroundImage
 // import homeBg from '../images/home.png';
 
@@ -169,14 +169,16 @@ const styles: { [key: string]: React.CSSProperties } = {
     overflow: 'hidden',
     padding: '80px 5% 40px 10%', 
   },
+ // Ve hasta abajo de tu archivo y reemplaza el heroBackground por esto:
   heroBackground: {
     position: 'absolute',
-    inset: 0,
-    // CAMBIO AQUI: Degradado a base de Gris oscuro/Carbón elegante (#111827)
-    backgroundImage: 'linear-gradient(to right, rgba(17, 24, 39, 0.95) 0%, rgba(17, 24, 39, 0.4) 100%), url("/src/images/home.png")',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    zIndex: -1,
+        inset: 0,
+        // 2. Inyecta la variable usando comillas invertidas y ${}
+        backgroundImage: `url(${homeBg})`, 
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        filter: 'brightness(0.55)',
+        zIndex: -1,
   },
   heroContent: {
     maxWidth: '800px',
