@@ -4,6 +4,62 @@ import SearchBar from '../components/SearchBar';
 import { useFetchProducts } from '../hooks/useFetchProducts';
 import type { Product } from '../types/Product';
 
+// --- FUNCIÓN INTELIGENTE PARA FORMATEAR LA DESCRIPCIÓN ---
+const formatTechnicalDescription = (text?: string) => {
+  if (!text) return <p style={{ color: '#6b7280' }}>Descripción no disponible.</p>;
+
+  // Lista de palabras clave detectadas en tus productos
+  const keywords = [
+    "MARCA:", "APARIENCIA:", "ACABADO:", "ESPESOR:", "M²/CAJA:", 
+    "PZS/CAJA:", "KG/CAJA:", "USO:", "ÁREA DE APLICACIÓN:", 
+    "CALIDAD:", "ACABADO ESPECIAL:", "NIVEL DE ESFUMADO:", 
+    "ABSORCIÓN:", "TRÁNSITO:", "MODELO:", "FORMATO:", "TIPO:"
+  ];
+
+  let formattedText = text;
+  
+  // Agregamos un salto de línea antes de cada palabra clave
+  keywords.forEach(keyword => {
+    const regex = new RegExp(`\\s*${keyword}`, 'g');
+    formattedText = formattedText.replace(regex, `\n${keyword}`);
+  });
+
+  // Separamos el texto en líneas limpias
+  const lines = formattedText.split('\n').filter(line => line.trim() !== '');
+
+  return (
+    <div style={{ marginBottom: '2rem' }}>
+      {lines.map((line, index) => {
+        const [key, ...rest] = line.split(':');
+        const value = rest.join(':').trim();
+        
+        // Si detecta una llave (ej. MARCA) y su valor (ej. CASTEL), lo hace estilo tabla
+        if (key && value) {
+          return (
+            <div key={index} style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              borderBottom: '1px solid #f3f4f6', 
+              paddingBottom: '0.5rem',
+              marginBottom: '0.5rem'
+            }}>
+              <span style={{ fontWeight: 600, color: '#111827', fontSize: '0.9rem' }}>
+                {key.trim()}
+              </span>
+              <span style={{ color: '#6b7280', fontSize: '0.9rem', textAlign: 'right', maxWidth: '60%' }}>
+                {value}
+              </span>
+            </div>
+          );
+        }
+        
+        // Si es texto normal, lo deja como párrafo
+        return <p key={index} style={{ color: '#4b5563', fontSize: '0.95rem', margin: '0 0 0.5rem 0' }}>{line}</p>;
+      })}
+    </div>
+  );
+};
+
 const Catalog: React.FC = () => {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<string>('TODOS');
@@ -15,7 +71,6 @@ const Catalog: React.FC = () => {
     category,
   });
 
-  // Estado que controla qué producto se abre en la ventana flotante
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   
   const categories = [
@@ -38,7 +93,7 @@ const Catalog: React.FC = () => {
         </p>
       </div>
 
-      {/* Panel de Controles (Búsqueda y Filtros) */}
+      {/* Panel de Controles */}
       <div style={styles.controlsCard}>
         <div style={styles.searchWrapper}>
           <SearchBar
@@ -179,11 +234,10 @@ const Catalog: React.FC = () => {
                   <p style={styles.modalPrice}>${selectedProduct.price?.toFixed(2)} MXN</p>
                 )}
                 
-                <p style={styles.modalDescription}>
-                  {selectedProduct.description || 'Descripción no disponible para este producto.'}
-                </p>
+                {/* AQUI APLICAMOS LA FUNCIÓN PARA DARLE DISEÑO AL TEXTO AMONTONADO */}
+                {formatTechnicalDescription(selectedProduct.description)}
 
-                {/* Especificaciones */}
+                {/* Especificaciones Extras (Color, Material, Medidas) */}
                 <div style={styles.specsContainer}>
                   {selectedProduct.color && (
                     <div style={styles.specItem}>
@@ -217,7 +271,7 @@ const Catalog: React.FC = () => {
   );
 };
 
-// Objeto de estilos para mantener el JSX limpio
+// Objeto de estilos
 const styles: { [key: string]: React.CSSProperties } = {
   container: {
     padding: '4rem 2rem',
@@ -357,11 +411,11 @@ const styles: { [key: string]: React.CSSProperties } = {
     left: 0,
     width: '100vw',
     height: '100vh',
-    backgroundColor: 'rgba(17, 24, 39, 0.85)', // Oscuro semitransparente
+    backgroundColor: 'rgba(17, 24, 39, 0.85)', 
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 9999, // Encima de todo el sitio
+    zIndex: 9999,
     padding: '1rem',
     boxSizing: 'border-box',
     backdropFilter: 'blur(5px)',
@@ -443,12 +497,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: '#e1b71f',
     marginBottom: '1.5rem',
   },
-  modalDescription: {
-    fontSize: '1.05rem',
-    color: '#4b5563',
-    lineHeight: 1.6,
-    marginBottom: '2rem',
-  },
   specsContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -473,7 +521,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: '#6b7280',
   },
   modalButton: {
-    backgroundColor: '#111827', // Botón oscuro elegante
+    backgroundColor: '#111827', 
     color: '#ffffff',
     padding: '1rem',
     borderRadius: '8px',
