@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 // 1. Importa la imagen aquí. Ajusta la ruta dependiendo de dónde esté tu archivo.
 // Ejemplo: si está en una carpeta images sería import logo from '../images/logo.png';
-import logo from './logo.png'; 
+import logo from '../images/logo.png'; 
 
 const Header: React.FC = () => {
   return (
