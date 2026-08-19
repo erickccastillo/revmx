@@ -40,7 +40,7 @@ const Home: React.FC = () => {
         </div>
       </main>
 
-      {/* Sección Sobre Nosotros (Fondo Oscuro Elegante) */}
+      {/* Sección Sobre Nosotros */}
       <section style={styles.aboutSection}>
         <div style={styles.aboutContainer}>
           <h2 style={styles.sectionOverline}>SOBRE NOSOTROS</h2>
@@ -55,42 +55,44 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Sección Destacados (Fondo Blanco Puro) */}
-      <section style={styles.featuredSection}>
-        <div style={styles.featuredHeader}>
-          <div>
-            <h2 style={styles.sectionOverline}>DESTACADOS</h2>
-            <h1 style={styles.sectionTitleDark}>Colecciones del momento</h1>
+      {/* Sección Destacados */}
+      <section style={styles.featuredSectionWrapper}>
+        <div style={styles.featuredContainer}>
+          <div style={styles.featuredHeader}>
+            <div>
+              <h2 style={styles.sectionOverline}>DESTACADOS</h2>
+              <h1 style={styles.sectionTitleDark}>Colecciones del momento</h1>
+            </div>
+            <Link to="/catalog" style={styles.textLink}>
+              Ver todo el catálogo &rarr;
+            </Link>
           </div>
-          <Link to="/catalog" style={styles.textLink}>
-            Ver todo el catálogo &rarr;
-          </Link>
-        </div>
 
-        {loading ? (
-          <div style={styles.loadingContainer}>
-             <div style={styles.spinner}></div>
-             <p>Cargando colecciones...</p>
-          </div>
-        ) : (
-          <div style={styles.productsGrid}>
-            {products.map((p) => (
-              <div key={p.id} style={styles.productCard}>
-                <div style={styles.cardImageWrapper}>
-                  <img src={p.image_url} alt={p.name} style={styles.cardImage} />
-                  <div style={styles.categoryTag}>{p.category}</div>
+          {loading ? (
+            <div style={styles.loadingContainer}>
+               <div style={styles.spinner}></div>
+               <p>Cargando colecciones...</p>
+            </div>
+          ) : (
+            <div style={styles.productsGrid}>
+              {products.map((p) => (
+                <div key={p.id} style={styles.productCard}>
+                  <div style={styles.cardImageWrapper}>
+                    <img src={p.image_url} alt={p.name} style={styles.cardImage} />
+                    <div style={styles.categoryTag}>{p.category}</div>
+                  </div>
+                  <div style={styles.cardBody}>
+                    <h3 style={styles.cardTitle}>{p.name}</h3>
+                    {/* La descripción ha sido eliminada a petición */}
+                  </div>
                 </div>
-                <div style={styles.cardBody}>
-                  <h3 style={styles.cardTitle}>{p.name}</h3>
-                  <p style={styles.cardDescription}>{p.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          )}
+        </div>
       </section>
 
-      {/* Sección Beneficios (Fondo Gris Perla) */}
+      {/* Sección Beneficios */}
       <section style={styles.benefitsSection}>
         <div style={styles.benefitsGrid}>
           {/* Beneficio 1 */}
@@ -260,6 +262,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   sectionTitleLight: {
     fontSize: '2.5rem',
+    lineHeight: 1.2,          // <-- CORRECCIÓN: Soluciona el texto encimado
     marginBottom: '1.5rem',
     fontWeight: 800,
     color: '#ffffff',
@@ -267,6 +270,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   sectionTitleDark: {
     fontSize: '2.5rem',
+    lineHeight: 1.2,          // <-- CORRECCIÓN: Interlineado para evitar empalmes
     marginBottom: '1.5rem',
     fontWeight: 800,
     color: '#111827',
@@ -280,11 +284,12 @@ const styles: { [key: string]: React.CSSProperties } = {
     borderRadius: '2px',
   },
 
-  // Sobre Nosotros (Fondo Elegante Oscuro)
+  // Sobre Nosotros
   aboutSection: {
-    backgroundColor: '#111827', // Un gris/azul medianoche muy elegante
+    backgroundColor: '#111827',
     padding: '7rem 2rem',
     textAlign: 'center',
+    width: '100%',
   },
   aboutContainer: {
     maxWidth: '800px',
@@ -293,14 +298,17 @@ const styles: { [key: string]: React.CSSProperties } = {
   aboutText: {
     fontSize: '1.2rem',
     lineHeight: 1.8,
-    color: '#9ca3af', // Gris claro para contraste suave
+    color: '#9ca3af',
   },
 
-  // Destacados
-  featuredSection: {
-    backgroundColor: '#ffffff',
+  // Destacados - CORRECCIÓN LATERALES NEGROS
+  featuredSectionWrapper: {
+    backgroundColor: '#ffffff', // El fondo se extiende al 100% de la pantalla
+    width: '100%',
+  },
+  featuredContainer: {
     padding: '6rem 5%',
-    maxWidth: '1400px',
+    maxWidth: '1400px',         // Solo el contenido se limita a 1400px
     margin: '0 auto',
   },
   featuredHeader: {
@@ -320,7 +328,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   productsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
     gap: '2.5rem',
   },
   productCard: {
@@ -358,23 +366,22 @@ const styles: { [key: string]: React.CSSProperties } = {
   cardBody: {
     padding: '1.5rem',
     flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center', // Centra verticalmente si no hay descripción
   },
   cardTitle: {
-    fontSize: '1.25rem',
+    fontSize: '1.15rem',
     fontWeight: 700,
     color: '#111827',
-    marginBottom: '0.5rem',
-  },
-  cardDescription: {
-    fontSize: '0.95rem',
-    color: '#6b7280',
-    lineHeight: 1.5,
+    margin: 0,                // Quitamos el margen porque ya no hay texto abajo
   },
 
-  // Beneficios (Fondo Gris Perla Claro)
+  // Beneficios
   benefitsSection: {
-    backgroundColor: '#f8fafc', // Gris perla súper limpio
+    backgroundColor: '#f8fafc',
     padding: '6rem 5%',
+    width: '100%',
   },
   benefitsGrid: {
     display: 'grid',
@@ -395,8 +402,8 @@ const styles: { [key: string]: React.CSSProperties } = {
     width: '64px',
     height: '64px',
     margin: '0 auto 1.5rem auto',
-    backgroundColor: 'rgba(225, 183, 31, 0.1)', // Fondo dorado muy suave
-    borderRadius: '16px', // Cuadrado redondeado para verse más moderno
+    backgroundColor: 'rgba(225, 183, 31, 0.1)',
+    borderRadius: '16px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -417,6 +424,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   ctaSection: {
     backgroundColor: '#0a2a5e',
     padding: '5rem 5%',
+    width: '100%',
   },
   ctaContent: {
     maxWidth: '1200px',
