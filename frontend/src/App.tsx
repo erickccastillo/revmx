@@ -20,8 +20,7 @@ const App: React.FC = () => {
       <Header />
       <main className="container">
         <Routes>
-          <Route path="*" element={<NotFound />} />
-          <Route path="/login" element={<Login />} />
+          
           <Route path="/" element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/about" element={<About />} />
@@ -29,26 +28,13 @@ const App: React.FC = () => {
           
           {/* NUEVAS RUTAS DE ADMINISTRADOR */}
           {/* 1. La tabla principal con buscador */}
-          
+          <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} /> 
+          <Route path="/admin/new" element={<ProtectedRoute><AdminProductForm /></ProtectedRoute>}/>
+          <Route path="/admin/edit/:id"element={<ProtectedRoute><AdminProductForm /></ProtectedRoute> } />
           
-           <Route
-            path="/admin/new"
-            element={
-              <ProtectedRoute>
-                <AdminProductForm />
-              </ProtectedRoute>
-            }
-          />
           
-          <Route
-            path="/admin/edit/:id"
-            element={
-              <ProtectedRoute>
-                <AdminProductForm />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="*" element={<NotFound />} />
 
           
         </Routes>
