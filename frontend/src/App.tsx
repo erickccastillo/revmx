@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import Quote from "./pages/Quote";
+import NotFound from "./pages/NotFound";
 import './App.css';
 
 
@@ -19,6 +20,7 @@ const App: React.FC = () => {
       <Header />
       <main className="container">
         <Routes>
+          <Route path="*" element={<NotFound />} />
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />
