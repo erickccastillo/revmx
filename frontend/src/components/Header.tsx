@@ -76,13 +76,13 @@ const Header: React.FC = () => {
 
       {/* Desvanecido inferior */}
       <div
-        style={{
-          height: '30px',
-          background:
-            'linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0))',
-          pointerEvents: 'none',
-        }}
-      />
+  style={{
+    height: '10px',
+    background:
+      'linear-gradient(to bottom, rgba(255,255,255,0.25), rgba(255,255,255,0))',
+    pointerEvents: 'none',
+  }}
+/>
     </div>
   );
 };
