@@ -170,30 +170,27 @@ const styles: { [key: string]: React.CSSProperties } = {
     minHeight: '100vh',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     color: '#fff',
     overflow: 'hidden',
-    padding: '120px 1.5rem 4rem',
-    textAlign: 'center',
+    padding: '80px 5% 40px 10%', 
   },
-
+ // Ve hasta abajo de tu archivo y reemplaza el heroBackground por esto:
   heroBackground: {
     position: 'absolute',
-    inset: 0,
-    backgroundImage: `url(${homeBg})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    filter: 'brightness(0.55)',
-    zIndex: -1,
+        inset: 0,
+        // 2. Inyecta la variable usando comillas invertidas y ${}
+        backgroundImage: `url(${homeBg})`, 
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        filter: 'brightness(0.55)',
+        zIndex: -1,
   },
-
   heroContent: {
     maxWidth: '800px',
-    width: '100%',
     position: 'relative',
     zIndex: 1,
   },
-
   badge: {
     display: 'inline-flex',
     alignItems: 'center',
@@ -207,73 +204,62 @@ const styles: { [key: string]: React.CSSProperties } = {
     borderRadius: '4px',
     marginBottom: '2rem',
   },
-
   badgeDot: {
     width: '6px',
     height: '6px',
     backgroundColor: '#e1b71f',
     borderRadius: '50%',
   },
-
   heroTitle: {
-    fontSize: 'clamp(2.5rem, 8vw, 4.5rem)',
+    fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
     marginBottom: '1.5rem',
     fontWeight: 800,
     color: '#ffffff',
     lineHeight: 1.1,
     letterSpacing: '-0.02em',
   },
-
   textHighlight: {
     color: '#f3f4f6',
     opacity: 0.9,
   },
-
   heroSubtitle: {
-    fontSize: 'clamp(1rem, 2.5vw, 1.25rem)',
+    fontSize: '1.25rem',
     marginBottom: '3rem',
     lineHeight: 1.6,
     color: '#e5e7eb',
     maxWidth: '600px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
   },
-
   heroButtons: {
     display: 'flex',
     gap: '1rem',
     flexWrap: 'wrap',
-    justifyContent: 'center',
   },
-
   primaryButton: {
     backgroundColor: '#e1b71f',
-    color: '#111827',
+    color: '#111827', // CAMBIO AQUI: Texto gris oscuro en lugar de azul brillante
     padding: '1rem 2rem',
     borderRadius: '6px',
     textDecoration: 'none',
     fontWeight: 700,
     fontSize: '1rem',
     boxShadow: '0 4px 14px rgba(225, 183, 31, 0.3)',
+    transition: 'transform 0.2s, box-shadow 0.2s',
     display: 'inline-block',
     textAlign: 'center',
-    minWidth: '220px',
   },
-
   secondaryButtonHero: {
-    backgroundColor: 'rgba(255,255,255,0.05)',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
     color: '#ffffff',
     padding: '1rem 2rem',
     borderRadius: '6px',
     textDecoration: 'none',
     fontWeight: 600,
-    border: '1px solid rgba(255,255,255,0.2)',
+    border: '1px solid rgba(255, 255, 255, 0.2)',
     backdropFilter: 'blur(8px)',
     display: 'inline-block',
     textAlign: 'center',
-    minWidth: '220px',
   },
-
+  
   // TITULOS
   sectionOverline: {
     fontSize: '0.875rem',
