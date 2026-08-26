@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useFeaturedProducts } from '../hooks/useFeaturedProducts';
@@ -5,8 +6,10 @@ import homeBg from '../images/home.png';
 // IMPORTANTE: Si la imagen no carga, descomenta esta línea y usa homeBg en el backgroundImage
 // import homeBg from '../images/home.png';
 
+
 const Home: React.FC = () => {
   const { products, loading } = useFeaturedProducts();
+
 
   return (
     <div style={styles.pageWrapper}>
@@ -41,6 +44,7 @@ const Home: React.FC = () => {
         </div>
       </main>
 
+
       {/* Sección Sobre Nosotros */}
       <section style={styles.aboutSection}>
         <div style={styles.aboutContainer}>
@@ -56,6 +60,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
+
       {/* Sección Destacados */}
       <section style={styles.featuredSectionWrapper}>
         <div style={styles.featuredContainer}>
@@ -68,6 +73,7 @@ const Home: React.FC = () => {
               Ver todo el catálogo &rarr;
             </Link>
           </div>
+
 
           {loading ? (
             <div style={styles.loadingContainer}>
@@ -91,6 +97,7 @@ const Home: React.FC = () => {
           )}
         </div>
       </section>
+
 
       {/* Sección Beneficios */}
       <section style={styles.benefitsSection}>
@@ -120,6 +127,7 @@ const Home: React.FC = () => {
             <p style={styles.benefitText}>Materiales certificados con garantía extendida para tu tranquilidad.</p>
           </div>
 
+
           {/* Beneficio 3 */}
           <div style={styles.benefitItem}>
             <div style={styles.iconWrapper}>
@@ -135,6 +143,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
+
 
       {/* Sección Call to Action */}
       <section style={styles.ctaSection}>
@@ -154,16 +163,12 @@ const Home: React.FC = () => {
   );
 };
 
+
 // --- ESTILOS ---
 const styles: { [key: string]: React.CSSProperties } = {
   pageWrapper: {
-    fontFamily:
-      '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-    width: '100%',
-    overflowX: 'hidden',
+    fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
   },
-
-  // HERO
   heroSection: {
     position: 'relative',
     width: '100%',
@@ -260,7 +265,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     textAlign: 'center',
   },
   
-  // TITULOS
+  // Utilidades de Texto
   sectionOverline: {
     fontSize: '0.875rem',
     letterSpacing: '2px',
@@ -268,25 +273,22 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: '#e1b71f',
     fontWeight: 700,
   },
-
   sectionTitleLight: {
-    fontSize: 'clamp(2rem, 6vw, 2.5rem)',
+    fontSize: '2.5rem',
     lineHeight: 1.2,
     marginBottom: '1.5rem',
     fontWeight: 800,
     color: '#ffffff',
     letterSpacing: '-0.02em',
   },
-
   sectionTitleDark: {
-    fontSize: 'clamp(2rem, 6vw, 2.5rem)',
+    fontSize: '2.5rem',
     lineHeight: 1.2,
     marginBottom: '1.5rem',
     fontWeight: 800,
     color: '#111827',
     letterSpacing: '-0.02em',
   },
-
   accentLineCentered: {
     width: '60px',
     height: '4px',
@@ -295,60 +297,55 @@ const styles: { [key: string]: React.CSSProperties } = {
     borderRadius: '2px',
   },
 
-  // ABOUT
+
+  // Sobre Nosotros
   aboutSection: {
     backgroundColor: '#111827',
-    padding: '5rem 1.5rem',
+    padding: '7rem 2rem',
     textAlign: 'center',
     width: '100%',
   },
-
   aboutContainer: {
     maxWidth: '800px',
     margin: '0 auto',
   },
-
   aboutText: {
-    fontSize: 'clamp(1rem, 2vw, 1.2rem)',
+    fontSize: '1.2rem',
     lineHeight: 1.8,
     color: '#9ca3af',
   },
 
-  // DESTACADOS
+
+  // Destacados
   featuredSectionWrapper: {
     backgroundColor: '#ffffff',
     width: '100%',
   },
-
   featuredContainer: {
-    padding: '5rem 1.5rem',
+    padding: '6rem 5%',
     maxWidth: '1400px',
     margin: '0 auto',
   },
-
   featuredHeader: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
+    marginBottom: '3rem',
     flexWrap: 'wrap',
     gap: '1rem',
-    marginBottom: '3rem',
   },
-
   textLink: {
-    color: '#111827',
+    color: '#111827', // CAMBIO AQUI: Link oscuro y elegante
     fontWeight: 600,
     textDecoration: 'none',
     borderBottom: '2px solid #e1b71f',
     paddingBottom: '2px',
   },
-
   productsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-    gap: '2rem',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+    gap: '2.5rem',
   },
-
   productCard: {
     backgroundColor: '#fff',
     borderRadius: '12px',
@@ -357,27 +354,23 @@ const styles: { [key: string]: React.CSSProperties } = {
     border: '1px solid #f3f4f6',
     display: 'flex',
     flexDirection: 'column',
-    width: '100%',
   },
-
   cardImageWrapper: {
     position: 'relative',
-    height: '220px',
+    height: '240px',
     overflow: 'hidden',
   },
-
   cardImage: {
     width: '100%',
     height: '100%',
     objectFit: 'cover',
   },
-
   categoryTag: {
     position: 'absolute',
     top: '1rem',
     left: '1rem',
-    backgroundColor: 'rgba(255,255,255,0.95)',
-    color: '#111827',
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    color: '#111827', // CAMBIO AQUI: Etiqueta oscura
     padding: '4px 12px',
     borderRadius: '4px',
     fontSize: '0.75rem',
@@ -385,47 +378,42 @@ const styles: { [key: string]: React.CSSProperties } = {
     letterSpacing: '1px',
     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
   },
-
   cardBody: {
     padding: '1.5rem',
     flexGrow: 1,
     display: 'flex',
-    alignItems: 'center',
+    flexDirection: 'column',
     justifyContent: 'center',
   },
-
   cardTitle: {
     fontSize: '1.15rem',
     fontWeight: 700,
     color: '#111827',
     margin: 0,
-    textAlign: 'center',
   },
 
-  // BENEFICIOS
+
+  // Beneficios
   benefitsSection: {
     backgroundColor: '#f8fafc',
-    padding: '5rem 1.5rem',
+    padding: '6rem 5%',
     width: '100%',
   },
-
   benefitsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-    gap: '2rem',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+    gap: '3rem',
     maxWidth: '1200px',
     margin: '0 auto',
   },
-
   benefitItem: {
     textAlign: 'center',
-    padding: '2rem 1.5rem',
+    padding: '2.5rem 2rem',
     backgroundColor: '#ffffff',
     borderRadius: '16px',
     boxShadow: '0 4px 20px -2px rgba(0,0,0,0.03)',
     border: '1px solid #f1f5f9',
   },
-
   iconWrapper: {
     width: '64px',
     height: '64px',
@@ -436,54 +424,49 @@ const styles: { [key: string]: React.CSSProperties } = {
     alignItems: 'center',
     justifyContent: 'center',
   },
-
   benefitTitle: {
     fontWeight: 800,
     fontSize: '1.25rem',
     color: '#111827',
     marginBottom: '0.75rem',
   },
-
   benefitText: {
     color: '#64748b',
     lineHeight: 1.6,
     fontSize: '0.95rem',
   },
 
+
   // CTA
   ctaSection: {
-    backgroundColor: '#111827',
-    padding: '5rem 1.5rem',
+    backgroundColor: '#111827', // CAMBIO AQUI: Fondo elegante en lugar de azul
+    padding: '5rem 5%',
     width: '100%',
   },
-
   ctaContent: {
     maxWidth: '1200px',
     margin: '0 auto',
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
-    textAlign: 'center',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
     gap: '2rem',
   },
-
   ctaTitle: {
-    fontSize: 'clamp(2rem, 6vw, 2.5rem)',
+    fontSize: '2.5rem',
     marginBottom: '0.5rem',
     fontWeight: 800,
     color: '#ffffff',
+    letterSpacing: '-0.02em',
   },
-
   ctaSubtitle: {
     fontSize: '1.15rem',
     color: '#9ca3af',
   },
-
   ctaButtonWrapper: {
     flexShrink: 0,
   },
-
-  // LOADING
+  
   loadingContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -492,7 +475,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: '4rem 0',
     color: '#6b7280',
   },
-
   spinner: {
     width: '40px',
     height: '40px',
@@ -503,5 +485,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     marginBottom: '1rem',
   },
 };
+
 
 export default Home;
