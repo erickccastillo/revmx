@@ -29,6 +29,7 @@ const Home: React.FC = () => {
             Selección curada de pisos y azulejos para hogares y proyectos que buscan elegancia, calidad y carácter.
           </p>
 
+
           <div style={styles.heroButtons}>
             <Link to="/catalog" style={styles.primaryButton}>
               VER CATÁLOGO &rarr;
