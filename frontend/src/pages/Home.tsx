@@ -156,35 +156,43 @@ const Home: React.FC = () => {
 // --- ESTILOS ---
 const styles: { [key: string]: React.CSSProperties } = {
   pageWrapper: {
-    fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    fontFamily:
+      '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    width: '100%',
+    overflowX: 'hidden',
   },
+
+  // HERO
   heroSection: {
     position: 'relative',
     width: '100%',
     minHeight: '100vh',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     color: '#fff',
     overflow: 'hidden',
-    padding: '80px 5% 40px 10%', 
+    padding: '120px 1.5rem 4rem',
+    textAlign: 'center',
   },
- // Ve hasta abajo de tu archivo y reemplaza el heroBackground por esto:
+
   heroBackground: {
     position: 'absolute',
-        inset: 0,
-        // 2. Inyecta la variable usando comillas invertidas y ${}
-        backgroundImage: `url(${homeBg})`, 
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        filter: 'brightness(0.55)',
-        zIndex: -1,
+    inset: 0,
+    backgroundImage: `url(${homeBg})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    filter: 'brightness(0.55)',
+    zIndex: -1,
   },
+
   heroContent: {
     maxWidth: '800px',
+    width: '100%',
     position: 'relative',
     zIndex: 1,
   },
+
   badge: {
     display: 'inline-flex',
     alignItems: 'center',
@@ -198,63 +206,74 @@ const styles: { [key: string]: React.CSSProperties } = {
     borderRadius: '4px',
     marginBottom: '2rem',
   },
+
   badgeDot: {
     width: '6px',
     height: '6px',
     backgroundColor: '#e1b71f',
     borderRadius: '50%',
   },
+
   heroTitle: {
-    fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
+    fontSize: 'clamp(2.5rem, 8vw, 4.5rem)',
     marginBottom: '1.5rem',
     fontWeight: 800,
     color: '#ffffff',
     lineHeight: 1.1,
     letterSpacing: '-0.02em',
   },
+
   textHighlight: {
     color: '#f3f4f6',
     opacity: 0.9,
   },
+
   heroSubtitle: {
-    fontSize: '1.25rem',
+    fontSize: 'clamp(1rem, 2.5vw, 1.25rem)',
     marginBottom: '3rem',
     lineHeight: 1.6,
     color: '#e5e7eb',
     maxWidth: '600px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
+
   heroButtons: {
     display: 'flex',
     gap: '1rem',
     flexWrap: 'wrap',
+    justifyContent: 'center',
   },
+
   primaryButton: {
     backgroundColor: '#e1b71f',
-    color: '#111827', // CAMBIO AQUI: Texto gris oscuro en lugar de azul brillante
+    color: '#111827',
     padding: '1rem 2rem',
     borderRadius: '6px',
     textDecoration: 'none',
     fontWeight: 700,
     fontSize: '1rem',
     boxShadow: '0 4px 14px rgba(225, 183, 31, 0.3)',
-    transition: 'transform 0.2s, box-shadow 0.2s',
     display: 'inline-block',
     textAlign: 'center',
+    minWidth: '220px',
   },
+
   secondaryButtonHero: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: 'rgba(255,255,255,0.05)',
     color: '#ffffff',
     padding: '1rem 2rem',
     borderRadius: '6px',
     textDecoration: 'none',
     fontWeight: 600,
-    border: '1px solid rgba(255, 255, 255, 0.2)',
+    border: '1px solid rgba(255,255,255,0.2)',
     backdropFilter: 'blur(8px)',
     display: 'inline-block',
     textAlign: 'center',
+    minWidth: '220px',
   },
-  
-  // Utilidades de Texto
+
+  // TITULOS
   sectionOverline: {
     fontSize: '0.875rem',
     letterSpacing: '2px',
@@ -262,22 +281,25 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: '#e1b71f',
     fontWeight: 700,
   },
+
   sectionTitleLight: {
-    fontSize: '2.5rem',
+    fontSize: 'clamp(2rem, 6vw, 2.5rem)',
     lineHeight: 1.2,
     marginBottom: '1.5rem',
     fontWeight: 800,
     color: '#ffffff',
     letterSpacing: '-0.02em',
   },
+
   sectionTitleDark: {
-    fontSize: '2.5rem',
+    fontSize: 'clamp(2rem, 6vw, 2.5rem)',
     lineHeight: 1.2,
     marginBottom: '1.5rem',
     fontWeight: 800,
     color: '#111827',
     letterSpacing: '-0.02em',
   },
+
   accentLineCentered: {
     width: '60px',
     height: '4px',
@@ -286,53 +308,60 @@ const styles: { [key: string]: React.CSSProperties } = {
     borderRadius: '2px',
   },
 
-  // Sobre Nosotros
+  // ABOUT
   aboutSection: {
     backgroundColor: '#111827',
-    padding: '7rem 2rem',
+    padding: '5rem 1.5rem',
     textAlign: 'center',
     width: '100%',
   },
+
   aboutContainer: {
     maxWidth: '800px',
     margin: '0 auto',
   },
+
   aboutText: {
-    fontSize: '1.2rem',
+    fontSize: 'clamp(1rem, 2vw, 1.2rem)',
     lineHeight: 1.8,
     color: '#9ca3af',
   },
 
-  // Destacados
+  // DESTACADOS
   featuredSectionWrapper: {
     backgroundColor: '#ffffff',
     width: '100%',
   },
+
   featuredContainer: {
-    padding: '6rem 5%',
+    padding: '5rem 1.5rem',
     maxWidth: '1400px',
     margin: '0 auto',
   },
+
   featuredHeader: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    marginBottom: '3rem',
     flexWrap: 'wrap',
     gap: '1rem',
+    marginBottom: '3rem',
   },
+
   textLink: {
-    color: '#111827', // CAMBIO AQUI: Link oscuro y elegante
+    color: '#111827',
     fontWeight: 600,
     textDecoration: 'none',
     borderBottom: '2px solid #e1b71f',
     paddingBottom: '2px',
   },
+
   productsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    gap: '2.5rem',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+    gap: '2rem',
   },
+
   productCard: {
     backgroundColor: '#fff',
     borderRadius: '12px',
@@ -341,23 +370,27 @@ const styles: { [key: string]: React.CSSProperties } = {
     border: '1px solid #f3f4f6',
     display: 'flex',
     flexDirection: 'column',
+    width: '100%',
   },
+
   cardImageWrapper: {
     position: 'relative',
-    height: '240px',
+    height: '220px',
     overflow: 'hidden',
   },
+
   cardImage: {
     width: '100%',
     height: '100%',
     objectFit: 'cover',
   },
+
   categoryTag: {
     position: 'absolute',
     top: '1rem',
     left: '1rem',
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    color: '#111827', // CAMBIO AQUI: Etiqueta oscura
+    backgroundColor: 'rgba(255,255,255,0.95)',
+    color: '#111827',
     padding: '4px 12px',
     borderRadius: '4px',
     fontSize: '0.75rem',
@@ -365,41 +398,47 @@ const styles: { [key: string]: React.CSSProperties } = {
     letterSpacing: '1px',
     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
   },
+
   cardBody: {
     padding: '1.5rem',
     flexGrow: 1,
     display: 'flex',
-    flexDirection: 'column',
+    alignItems: 'center',
     justifyContent: 'center',
   },
+
   cardTitle: {
     fontSize: '1.15rem',
     fontWeight: 700,
     color: '#111827',
     margin: 0,
+    textAlign: 'center',
   },
 
-  // Beneficios
+  // BENEFICIOS
   benefitsSection: {
     backgroundColor: '#f8fafc',
-    padding: '6rem 5%',
+    padding: '5rem 1.5rem',
     width: '100%',
   },
+
   benefitsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    gap: '3rem',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+    gap: '2rem',
     maxWidth: '1200px',
     margin: '0 auto',
   },
+
   benefitItem: {
     textAlign: 'center',
-    padding: '2.5rem 2rem',
+    padding: '2rem 1.5rem',
     backgroundColor: '#ffffff',
     borderRadius: '16px',
     boxShadow: '0 4px 20px -2px rgba(0,0,0,0.03)',
     border: '1px solid #f1f5f9',
   },
+
   iconWrapper: {
     width: '64px',
     height: '64px',
@@ -410,12 +449,14 @@ const styles: { [key: string]: React.CSSProperties } = {
     alignItems: 'center',
     justifyContent: 'center',
   },
+
   benefitTitle: {
     fontWeight: 800,
     fontSize: '1.25rem',
     color: '#111827',
     marginBottom: '0.75rem',
   },
+
   benefitText: {
     color: '#64748b',
     lineHeight: 1.6,
@@ -424,34 +465,38 @@ const styles: { [key: string]: React.CSSProperties } = {
 
   // CTA
   ctaSection: {
-    backgroundColor: '#111827', // CAMBIO AQUI: Fondo elegante en lugar de azul
-    padding: '5rem 5%',
+    backgroundColor: '#111827',
+    padding: '5rem 1.5rem',
     width: '100%',
   },
+
   ctaContent: {
     maxWidth: '1200px',
     margin: '0 auto',
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
+    textAlign: 'center',
     gap: '2rem',
   },
+
   ctaTitle: {
-    fontSize: '2.5rem',
+    fontSize: 'clamp(2rem, 6vw, 2.5rem)',
     marginBottom: '0.5rem',
     fontWeight: 800,
     color: '#ffffff',
-    letterSpacing: '-0.02em',
   },
+
   ctaSubtitle: {
     fontSize: '1.15rem',
     color: '#9ca3af',
   },
+
   ctaButtonWrapper: {
     flexShrink: 0,
   },
-  
+
+  // LOADING
   loadingContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -460,6 +505,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: '4rem 0',
     color: '#6b7280',
   },
+
   spinner: {
     width: '40px',
     height: '40px',
