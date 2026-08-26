@@ -14,25 +14,25 @@ const Header: React.FC = () => {
           backgroundColor: '#fff',
         }}
       >
-        {/* Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          {logo}
-          <div>
-            <div
-              style={{
-                fontFamily: 'Georgia',
-                fontWeight: 700,
-                fontSize: '1.25rem',
-                color: '#000000',
-              }}
-            >
-              Revestimento
-            </div>
-            <div style={{ fontSize: '0.65rem', color: '#ba9e10' }}>
-              PISOS & AZULEJOS
-            </div>
+          {/* Logo */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <img
+          src={logo} // 2. Usa la variable importada aquí (sin comillas)
+          alt="Logo Revestimento"
+          style={{
+            width: 60,
+            height: 60,
+            borderRadius: 6,
+            objectFit: 'cover',
+          }}
+        />
+        <div>
+          <div style={{ fontFamily: 'Georgia', fontWeight: 700, fontSize: '1.25rem', color: '#000000' }}>
+            Revestimento
           </div>
+          <div style={{ fontSize: '0.65rem', color: '#ba9e10' }}>PISOS & AZULEJOS</div>
         </div>
+      </div>
 
         {/* Navegación */}
         <nav style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
