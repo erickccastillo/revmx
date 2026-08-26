@@ -1,6 +1,33 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const About: React.FC = () => {
+
+  const locationsRef = useRef<HTMLElement | null>(null);
+  const [showBranchesBubble, setShowBranchesBubble] = useState(false);
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setShowBranchesBubble(!entry.isIntersecting);
+      },
+      {
+        threshold: 0.15,
+      }
+    );
+  
+    if (locationsRef.current) {
+      observer.observe(locationsRef.current);
+    }
+  
+    return () => observer.disconnect();
+  }, []);
+  
+  const scrollToBranches = () => {
+    locationsRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  };
   // Datos reales de las 3 sucursales
   const branches = [
     {
@@ -66,7 +93,7 @@ const About: React.FC = () => {
       </section>
 
       {/* Sección de Sucursales */}
-      <section style={styles.locationsSection}>
+      <section ref={locationsRef} style={styles.locationsSection}>
         <div style={styles.locationsHeader}>
           <h2 style={styles.sectionOverlineDark}>UBICACIONES</h2>
           <h1 style={styles.sectionTitleDark}>Nuestras Sucursales</h1>
@@ -120,6 +147,15 @@ const About: React.FC = () => {
           ))}
         </div>
       </section>
+      {showBranchesBubble && (
+  <button
+    onClick={scrollToBranches}
+    style={styles.branchesBubble}
+    aria-label="Ir a sucursales"
+  >
+    📍 Sucursales
+  </button>
+)}
     </div>
   );
 };
@@ -130,7 +166,24 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     backgroundColor: '#ffffff',
   },
-  
+  branchesBubble: {
+  position: 'fixed',
+  right: '24px',
+  bottom: '24px',
+  zIndex: 9999,
+  border: 'none',
+  borderRadius: '999px',
+  padding: '14px 22px',
+  background: 'linear-gradient(135deg, #e1b71f 0%, #f4d03f 100%)',
+  color: '#111827',
+  fontWeight: 800,
+  fontSize: '0.95rem',
+  cursor: 'pointer',
+  boxShadow: '0 10px 30px rgba(225,183,31,0.4)',
+  animation: 'branchFloat 2.2s ease-in-out infinite',
+  transition: 'all 0.3s ease',
+},
+
   // Hero Section
   heroSection: {
     backgroundColor: '#111827', // Gris Carbón / Azul Medianoche
